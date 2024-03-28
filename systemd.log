@@ -1,0 +1,1397 @@
+[vagrant@kernel-update ~]$ script systemd.log
+Script started, file is systemd.log
+[vagrant@kernel-update ~]$ sudo su
+[root@kernel-update vagrant]# cat /etc/sysconfig/watchlog
+cat: /etc/sysconfig/watchlog: No such file or directory
+[root@kernel-update vagrant]# touch /etc/sysconfig/watchlog
+[root@kernel-update vagrant]# vi /etc/sysconfig/watchlog
+[root@kernel-update vagrant]# cat /etc/sysconfig/watchlog
+# Configuration file for my watchlog service
+# Place it to /etc/sysconfig
+
+# File and word in that file that we will be monit
+WORD="ALERT"
+LOG=/var/log/watchlog.log
+[root@kernel-update vagrant]# touch /var/log/watchlog.log
+[root@kernel-update vagrant]# vi /var/log/watchlog.log
+[root@kernel-update vagrant]# vi /etc/sysconfig/watchlog
+[root@kernel-update vagrant]# cat /var/log/watchlog.log
+test test 'error'
+[root@kernel-update vagrant]# touch /opt/watchlog.sh
+[root@kernel-update vagrant]# vi /opt/watchlog.sh
+[root@kernel-update vagrant]# chmod +x /opt/watchlog.sh
+[root@kernel-update vagrant]# ls -la /etc/sys
+sysconfig/          sysctl.d/           system-release      
+sysctl.conf         systemd/            system-release-cpe  
+[root@kernel-update vagrant]# ls -la /etc/systemd/system
+total 8
+drwxr-xr-x. 14 root root 4096 Apr 30  2020 .
+drwxr-xr-x.  4 root root  151 Apr 30  2020 ..
+drwxr-xr-x.  2 root root   32 Apr 30  2020 basic.target.wants
+lrwxrwxrwx.  1 root root   57 Apr 30  2020 dbus-org.freedesktop.nm-dispatcher.service -> /usr/lib/systemd/system/NetworkManager-dispatcher.service
+lrwxrwxrwx.  1 root root   37 Apr 30  2020 default.target -> /lib/systemd/system/multi-user.target
+drwxr-xr-x.  2 root root   87 Apr 30  2020 default.target.wants
+drwxr-xr-x.  2 root root   38 Apr 30  2020 dev-virtio\x2dports-org.qemu.guest_agent.0.device.wants
+drwxr-xr-x.  2 root root   32 Apr 30  2020 getty.target.wants
+drwxr-xr-x.  2 root root   35 Apr 30  2020 local-fs.target.wants
+drwxr-xr-x.  2 root root 4096 Apr 30  2020 multi-user.target.wants
+drwxr-xr-x.  2 root root   48 Apr 30  2020 network-online.target.wants
+drwxr-xr-x.  2 root root   31 Apr 30  2020 remote-fs.target.wants
+drwxr-xr-x.  2 root root   28 Apr 30  2020 sockets.target.wants
+drwxr-xr-x.  2 root root  171 Apr 30  2020 sysinit.target.wants
+drwxr-xr-x.  2 root root   44 Apr 30  2020 system-update.target.wants
+drwxr-xr-x.  2 root root   58 Apr 30  2020 vmtoolsd.service.requires
+[root@kernel-update vagrant]# ls -la /etc/systemd/system/
+basic.target.wants/
+dbus-org.freedesktop.nm-dispatcher.service
+default.target
+default.target.wants/
+dev-virtio\x2dports-org.qemu.guest_agent.0.device.wants/
+getty.target.wants/
+local-fs.target.wants/
+multi-user.target.wants/
+network-online.target.wants/
+remote-fs.target.wants/
+sockets.target.wants/
+sysinit.target.wants/
+system-update.target.wants/
+[root@kernel-update vagrant]# cat /etc/systemd/system/system-update.target.wants/systemd-readahead-drop.service 
+#  This file is part of systemd.
+#
+#  systemd is free software; you can redistribute it and/or modify it
+#  under the terms of the GNU Lesser General Public License as published by
+#  the Free Software Foundation; either version 2.1 of the License, or
+#  (at your option) any later version.
+
+[Unit]
+Description=Drop Read-Ahead Data
+Documentation=man:systemd-readahead-replay.service(8)
+ConditionPathExists=/.readahead
+
+[Service]
+Type=oneshot
+ExecStart=/bin/rm -f /.readahead
+
+[Install]
+WantedBy=system-update.target
+Also=systemd-readahead-collect.service
+[root@kernel-update vagrant]# ls /etc/systemd/system/
+basic.target.wants/
+dbus-org.freedesktop.nm-dispatcher.service
+default.target
+default.target.wants/
+dev-virtio\x2dports-org.qemu.guest_agent.0.device.wants/
+getty.target.wants/
+local-fs.target.wants/
+multi-user.target.wants/
+network-online.target.wants/
+remote-fs.target.wants/
+sockets.target.wants/
+sysinit.target.wants/
+system-update.target.wants/
+[root@kernel-update vagrant]# ls /etc/systemd/system/
+basic.target.wants/
+dbus-org.freedesktop.nm-dispatcher.service
+default.target
+default.target.wants/
+dev-virtio\x2dports-org.qemu.guest_agent.0.device.wants/
+getty.target.wants/
+local-fs.target.wants/
+multi-user.target.wants/
+network-online.target.wants/
+remote-fs.target.wants/
+sockets.target.wants/
+sysinit.target.wants/
+system-update.target.wants/
+[root@kernel-update vagrant]# mkdir /etc/systemd/system/watchlog
+[root@kernel-update vagrant]# touch /etc/systemd/system/watchlog/watchlog.service
+[root@kernel-update vagrant]# chmod +x /etc/systemd/system/watchlog/watchlog.service
+[root@kernel-update vagrant]# vi /etc/systemd/system/watchlog/watchlog.service
+[root@kernel-update vagrant]# vi /etc/systemd/system/watchlog/watchlog.service
+[root@kernel-update vagrant]# touch /etc/systemd/system/watchlog/watchlog.timer
+[root@kernel-update vagrant]# chmod +x /etc/systemd/system/watchlog/watchlog.timer
+[root@kernel-update vagrant]# vi /etc/systemd/system/watchlog/watchlog.timer
+[root@kernel-update vagrant]# 
+[root@kernel-update vagrant]# systemctl status watchlog.timer
+Unit watchlog.timer could not be found.
+[root@kernel-update vagrant]# systemctl start watchlog.timer
+Failed to start watchlog.timer: Unit not found.
+[root@kernel-update vagrant]# vi /etc/systemd/system/watchlog/watchlog.
+watchlog.service  watchlog.timer    
+[root@kernel-update vagrant]# mv /etc/systemd/system/watchlog/watchlog.service /etc/systemd/system
+[root@kernel-update vagrant]# mv /etc/systemd/system/watchlog/watchlog.timer /etc/systemd/system
+[root@kernel-update vagrant]# ls -la /etc/systemd/system/watchlog/
+total 4
+drwxr-xr-x.  2 root root    6 Mar 28 17:29 .
+drwxr-xr-x. 15 root root 4096 Mar 28 17:29 ..
+[root@kernel-update vagrant]# rmdir /etc/systemd/system/watchlog/
+[root@kernel-update vagrant]# ls -la /etc/sys
+sysconfig/          sysctl.conf         sysctl.d/           systemd/            system-release      system-release-cpe  
+[root@kernel-update vagrant]# ls -la /etc/systemd/system/watchlog.
+watchlog.service  watchlog.timer    
+[root@kernel-update vagrant]# systemctl start watchlog.timer
+[root@kernel-update vagrant]# 
+
+
+[root@kernel-update vagrant]# tail -f /var/log/messages 
+Mar 28 16:51:52 localhost systemd: Started Session 3 of user vagrant.
+Mar 28 16:52:50 localhost su: (to root) vagrant on pts/1
+Mar 28 16:55:59 localhost systemd-udevd: Network interface NamePolicy= disabled on kernel command line, ignoring.
+Mar 28 17:01:01 localhost systemd: Created slice User Slice of root.
+Mar 28 17:01:01 localhost systemd: Started Session 4 of user root.
+Mar 28 17:05:28 localhost systemd: Starting Cleanup of Temporary Directories...
+Mar 28 17:05:28 localhost systemd: Started Cleanup of Temporary Directories.
+Mar 28 17:30:51 localhost systemd: Configuration file /etc/systemd/system/watchlog.timer is marked executable. Please remove executable permission bits. Proceeding anyway.
+Mar 28 17:30:51 localhost systemd: Configuration file /etc/systemd/system/watchlog.service is marked executable. Please remove executable permission bits. Proceeding anyway.
+Mar 28 17:30:51 localhost systemd: Started Run watchlog script every 30 second.
+q^C
+[root@kernel-update vagrant]# grep "timer" /var/log/messages 
+Mar 28 16:50:22 localhost kernel: Command line: BOOT_IMAGE=/boot/vmlinuz-3.10.0-1127.el7.x86_64 root=UUID=1c419d6c-5064-4a2b-953c-05b2c67edb15 ro no_timer_check console=tty0 console=ttyS0,115200n8 net.ifnames=0 biosdevname=0 elevator=noop crashkernel=auto LANG=en_US.UTF-8
+Mar 28 16:50:22 localhost kernel: Kernel command line: BOOT_IMAGE=/boot/vmlinuz-3.10.0-1127.el7.x86_64 root=UUID=1c419d6c-5064-4a2b-953c-05b2c67edb15 ro no_timer_check console=tty0 console=ttyS0,115200n8 net.ifnames=0 biosdevname=0 elevator=noop crashkernel=auto LANG=en_US.UTF-8
+Mar 28 16:50:22 localhost kernel: RAPL PMU: API unit is 2^-32 Joules, 5 fixed counters, 10737418240 ms ovfl timer
+Mar 28 17:30:51 localhost systemd: Configuration file /etc/systemd/system/watchlog.timer is marked executable. Please remove executable permission bits. Proceeding anyway.
+[root@kernel-update vagrant]# chmod -x /etc/systemd/system/watchlog/watchlog.timer
+chmod: cannot access '/etc/systemd/system/watchlog/watchlog.timer': No such file or directory
+[root@kernel-update vagrant]# chmod -x /etc/systemd/system/watchlog.timer
+[root@kernel-update vagrant]# chmod -x /etc/systemd/system/watchlog.
+watchlog.service  watchlog.timer    
+[root@kernel-update vagrant]# chmod -x /etc/systemd/system/watchlog.service 
+[root@kernel-update vagrant]# grep "timer" /var/log/messages 
+Mar 28 16:50:22 localhost kernel: Command line: BOOT_IMAGE=/boot/vmlinuz-3.10.0-1127.el7.x86_64 root=UUID=1c419d6c-5064-4a2b-953c-05b2c67edb15 ro no_timer_check console=tty0 console=ttyS0,115200n8 net.ifnames=0 biosdevname=0 elevator=noop crashkernel=auto LANG=en_US.UTF-8
+Mar 28 16:50:22 localhost kernel: Kernel command line: BOOT_IMAGE=/boot/vmlinuz-3.10.0-1127.el7.x86_64 root=UUID=1c419d6c-5064-4a2b-953c-05b2c67edb15 ro no_timer_check console=tty0 console=ttyS0,115200n8 net.ifnames=0 biosdevname=0 elevator=noop crashkernel=auto LANG=en_US.UTF-8
+Mar 28 16:50:22 localhost kernel: RAPL PMU: API unit is 2^-32 Joules, 5 fixed counters, 10737418240 ms ovfl timer
+Mar 28 17:30:51 localhost systemd: Configuration file /etc/systemd/system/watchlog.timer is marked executable. Please remove executable permission bits. Proceeding anyway.
+[root@kernel-update vagrant]# 
+[root@kernel-update vagrant]# systemct status watchlog.timer
+bash: systemct: command not found
+[root@kernel-update vagrant]# systemctl status watchlog.timer
+● watchlog.timer - Run watchlog script every 30 second
+   Loaded: loaded (/etc/systemd/system/watchlog.timer; disabled; vendor preset: disabled)
+   Active: active (elapsed) since Thu 2024-03-28 17:30:51 UTC; 3min 40s ago
+
+Mar 28 17:30:51 kernel-update systemd[1]: Started Run watchlog script every 30 second.
+[root@kernel-update vagrant]# tail -f /var/log/messages 
+Mar 28 16:51:52 localhost systemd: Started Session 3 of user vagrant.
+Mar 28 16:52:50 localhost su: (to root) vagrant on pts/1
+Mar 28 16:55:59 localhost systemd-udevd: Network interface NamePolicy= disabled on kernel command line, ignoring.
+Mar 28 17:01:01 localhost systemd: Created slice User Slice of root.
+Mar 28 17:01:01 localhost systemd: Started Session 4 of user root.
+Mar 28 17:05:28 localhost systemd: Starting Cleanup of Temporary Directories...
+Mar 28 17:05:28 localhost systemd: Started Cleanup of Temporary Directories.
+Mar 28 17:30:51 localhost systemd: Configuration file /etc/systemd/system/watchlog.timer is marked executable. Please remove executable permission bits. Proceeding anyway.
+Mar 28 17:30:51 localhost systemd: Configuration file /etc/systemd/system/watchlog.service is marked executable. Please remove executable permission bits. Proceeding anyway.
+Mar 28 17:30:51 localhost systemd: Started Run watchlog script every 30 second.
+^C
+[root@kernel-update vagrant]# tail -f /var/log/messages 
+Mar 28 16:51:52 localhost systemd: Started Session 3 of user vagrant.
+Mar 28 16:52:50 localhost su: (to root) vagrant on pts/1
+Mar 28 16:55:59 localhost systemd-udevd: Network interface NamePolicy= disabled on kernel command line, ignoring.
+Mar 28 17:01:01 localhost systemd: Created slice User Slice of root.
+Mar 28 17:01:01 localhost systemd: Started Session 4 of user root.
+Mar 28 17:05:28 localhost systemd: Starting Cleanup of Temporary Directories...
+Mar 28 17:05:28 localhost systemd: Started Cleanup of Temporary Directories.
+Mar 28 17:30:51 localhost systemd: Configuration file /etc/systemd/system/watchlog.timer is marked executable. Please remove executable permission bits. Proceeding anyway.
+Mar 28 17:30:51 localhost systemd: Configuration file /etc/systemd/system/watchlog.service is marked executable. Please remove executable permission bits. Proceeding anyway.
+Mar 28 17:30:51 localhost systemd: Started Run watchlog script every 30 second.
+^C
+[root@kernel-update vagrant]# systemctl status watchlog.service
+● watchlog.service - My watchlog service
+   Loaded: loaded (/etc/systemd/system/watchlog.service; static; vendor preset: disabled)
+   Active: inactive (dead)
+[root@kernel-update vagrant]# systemctl start watchlog.service
+Job for watchlog.service failed because the control process exited with error code. See "systemctl status watchlog.service" and "journalctl -xe" for details.
+[root@kernel-update vagrant]# journalctl -xe
+Mar 28 17:36:58 kernel-update systemd[21289]: Failed at step EXEC spawning /opt/watchlog.sh: Exec format error
+-- Subject: Process /opt/watchlog.sh could not be executed
+-- Defined-By: systemd
+-- Support: http://lists.freedesktop.org/mailman/listinfo/systemd-devel
+-- 
+-- The process /opt/watchlog.sh could not be executed and failed.
+-- 
+-- The error number returned by this process is 8.
+Mar 28 17:36:58 kernel-update systemd[1]: watchlog.service: main process exited, code=exited, status=203/EXEC
+Mar 28 17:36:58 kernel-update systemd[1]: Failed to start My watchlog service.
+-- Subject: Unit watchlog.service has failed
+-- Defined-By: systemd
+-- Support: http://lists.freedesktop.org/mailman/listinfo/systemd-devel
+-- 
+-- Unit watchlog.service has failed.
+-- 
+-- The result is failed.
+Mar 28 17:36:58 kernel-update systemd[1]: Unit watchlog.service entered failed state.
+Mar 28 17:36:58 kernel-update systemd[1]: watchlog.service failed.
+Mar 28 17:36:58 kernel-update polkitd[357]: Unregistered Authentication Agent for unix-process:21283:279460 (system bus name :1.46, object path /o
+[root@kernel-update vagrant]# vi /opt/watchlog.sh 
+[root@kernel-update vagrant]# tail -f /var/log/messages 
+Mar 28 17:37:28 localhost systemd: watchlog.service: main process exited, code=exited, status=203/EXEC
+Mar 28 17:37:28 localhost systemd: Failed to start My watchlog service.
+Mar 28 17:37:28 localhost systemd: Unit watchlog.service entered failed state.
+Mar 28 17:37:28 localhost systemd: watchlog.service failed.
+Mar 28 17:38:28 localhost systemd: Starting My watchlog service...
+Mar 28 17:38:28 localhost systemd: Failed at step EXEC spawning /opt/watchlog.sh: Exec format error
+Mar 28 17:38:28 localhost systemd: watchlog.service: main process exited, code=exited, status=203/EXEC
+Mar 28 17:38:28 localhost systemd: Failed to start My watchlog service.
+Mar 28 17:38:28 localhost systemd: Unit watchlog.service entered failed state.
+Mar 28 17:38:28 localhost systemd: watchlog.service failed.
+Mar 28 17:39:28 localhost systemd: Starting My watchlog service...
+Mar 28 17:39:28 localhost root: Thu Mar 28 17:39:28 UTC 2024: I found word, Master!
+Mar 28 17:39:28 localhost systemd: Started My watchlog service.
+^C
+[root@kernel-update vagrant]# yum install epel-release -y && yum install spawn-fcgi php php-cli
+Failed to set locale, defaulting to C
+Loaded plugins: fastestmirror
+Determining fastest mirrors
+ * base: mirror.linux-ia64.org
+ * extras: mirror.linux-ia64.org
+ * updates: mirror.linux-ia64.org
+base                                                                                                                       | 3.6 kB  00:00:00     
+extras                                                                                                                     | 2.9 kB  00:00:00     
+updates                                                                                                                    | 2.9 kB  00:00:00     
+(1/4): extras/7/x86_64/primary_db                                                                                          | 254 kB  00:00:00     
+(2/4): base/7/x86_64/group_gz                                                                                              | 153 kB  00:00:00     
+(3/4): base/7/x86_64/primary_db                                                                                            | 6.1 MB  00:00:03     
+(4/4): updates/7/x86_64/primary_db                                                                                         |  26 MB  00:00:27     
+Resolving Dependencies
+--> Running transaction check
+---> Package epel-release.noarch 0:7-11 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+==================================================================================================================================================
+ Package                                Arch                             Version                           Repository                        Size
+==================================================================================================================================================
+Installing:
+ epel-release                           noarch                           7-11                              extras                            15 k
+
+Transaction Summary
+==================================================================================================================================================
+Install  1 Package
+
+Total download size: 15 k
+Installed size: 24 k
+Downloading packages:
+warning: /var/cache/yum/x86_64/7/extras/packages/epel-release-7-11.noarch.rpm: Header V3 RSA/SHA256 Signature, key ID f4a80eb5: NOKEY
+Public key for epel-release-7-11.noarch.rpm is not installed
+epel-release-7-11.noarch.rpm                                                                                               |  15 kB  00:00:00     
+Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+Importing GPG key 0xF4A80EB5:
+ Userid     : "CentOS-7 Key (CentOS 7 Official Signing Key) <security@centos.org>"
+ Fingerprint: 6341 ab27 53d7 8a78 a7c2 7bb1 24c6 a8a7 f4a8 0eb5
+ Package    : centos-release-7-8.2003.0.el7.centos.x86_64 (@anaconda)
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : epel-release-7-11.noarch                                                                                                       1/1 
+  Verifying  : epel-release-7-11.noarch                                                                                                       1/1 
+
+Installed:
+  epel-release.noarch 0:7-11                                                                                                                      
+
+Complete!
+Failed to set locale, defaulting to C
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+epel/x86_64/metalink                                                                                                       |  30 kB  00:00:00     
+ * base: mirror.linux-ia64.org
+ * epel: mirror.linux-ia64.org
+ * extras: mirror.linux-ia64.org
+ * updates: mirror.linux-ia64.org
+epel                                                                                                                       | 4.7 kB  00:00:00     
+(1/3): epel/x86_64/group_gz                                                                                                | 100 kB  00:00:00     
+(2/3): epel/x86_64/updateinfo                                                                                              | 1.0 MB  00:00:00     
+(3/3): epel/x86_64/primary_db                                                                                                                                          | 7.0 MB  00:00:05     
+Resolving Dependencies
+--> Running transaction check
+---> Package php.x86_64 0:5.4.16-48.el7 will be installed
+--> Processing Dependency: php-common(x86-64) = 5.4.16-48.el7 for package: php-5.4.16-48.el7.x86_64
+--> Processing Dependency: httpd-mmn = 20120211x8664 for package: php-5.4.16-48.el7.x86_64
+--> Processing Dependency: httpd for package: php-5.4.16-48.el7.x86_64
+---> Package php-cli.x86_64 0:5.4.16-48.el7 will be installed
+---> Package spawn-fcgi.x86_64 0:1.6.3-5.el7 will be installed
+--> Running transaction check
+---> Package httpd.x86_64 0:2.4.6-99.el7.centos.1 will be installed
+--> Processing Dependency: httpd-tools = 2.4.6-99.el7.centos.1 for package: httpd-2.4.6-99.el7.centos.1.x86_64
+--> Processing Dependency: system-logos >= 7.92.1-1 for package: httpd-2.4.6-99.el7.centos.1.x86_64
+--> Processing Dependency: /etc/mime.types for package: httpd-2.4.6-99.el7.centos.1.x86_64
+--> Processing Dependency: libaprutil-1.so.0()(64bit) for package: httpd-2.4.6-99.el7.centos.1.x86_64
+--> Processing Dependency: libapr-1.so.0()(64bit) for package: httpd-2.4.6-99.el7.centos.1.x86_64
+---> Package php-common.x86_64 0:5.4.16-48.el7 will be installed
+--> Processing Dependency: libzip.so.2()(64bit) for package: php-common-5.4.16-48.el7.x86_64
+--> Running transaction check
+---> Package apr.x86_64 0:1.4.8-7.el7 will be installed
+---> Package apr-util.x86_64 0:1.5.2-6.el7_9.1 will be installed
+---> Package centos-logos.noarch 0:70.0.6-3.el7.centos will be installed
+---> Package httpd-tools.x86_64 0:2.4.6-99.el7.centos.1 will be installed
+---> Package libzip.x86_64 0:0.10.1-8.el7 will be installed
+---> Package mailcap.noarch 0:2.1.41-2.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+==============================================================================================================================================================================================
+ Package                                       Arch                                    Version                                                 Repository                                Size
+==============================================================================================================================================================================================
+Installing:
+ php                                           x86_64                                  5.4.16-48.el7                                           base                                     1.4 M
+ php-cli                                       x86_64                                  5.4.16-48.el7                                           base                                     2.7 M
+ spawn-fcgi                                    x86_64                                  1.6.3-5.el7                                             epel                                      18 k
+Installing for dependencies:
+ apr                                           x86_64                                  1.4.8-7.el7                                             base                                     104 k
+ apr-util                                      x86_64                                  1.5.2-6.el7_9.1                                         updates                                   92 k
+ centos-logos                                  noarch                                  70.0.6-3.el7.centos                                     base                                      21 M
+ httpd                                         x86_64                                  2.4.6-99.el7.centos.1                                   updates                                  2.7 M
+ httpd-tools                                   x86_64                                  2.4.6-99.el7.centos.1                                   updates                                   94 k
+ libzip                                        x86_64                                  0.10.1-8.el7                                            base                                      48 k
+ mailcap                                       noarch                                  2.1.41-2.el7                                            base                                      31 k
+ php-common                                    x86_64                                  5.4.16-48.el7                                           base                                     565 k
+
+Transaction Summary
+==============================================================================================================================================================================================
+Install  3 Packages (+8 Dependent packages)
+
+Total download size: 29 M
+Installed size: 49 M
+Is this ok [y/d/N]: y
+Is this ok [y/d/N]: y
+Downloading packages:
+(1/11): apr-1.4.8-7.el7.x86_64.rpm                                                                                                                                     | 104 kB  00:00:00     
+(2/11): apr-util-1.5.2-6.el7_9.1.x86_64.rpm                                                                                                                            |  92 kB  00:00:00     
+(3/11): libzip-0.10.1-8.el7.x86_64.rpm                                                                                                                                 |  48 kB  00:00:00     
+(4/11): httpd-tools-2.4.6-99.el7.centos.1.x86_64.rpm                                                                                                                   |  94 kB  00:00:00     
+(5/11): mailcap-2.1.41-2.el7.noarch.rpm                                                                                                                                |  31 kB  00:00:00     
+(6/11): php-5.4.16-48.el7.x86_64.rpm                                                                                                                                   | 1.4 MB  00:00:01     
+(7/11): php-common-5.4.16-48.el7.x86_64.rpm                                                                                                                            | 565 kB  00:00:01     
+warning: /var/cache/yum/x86_64/7/epel/packages/spawn-fcgi-1.6.3-5.el7.x86_64.rpm: Header V3 RSA/SHA256 Signature, key ID 352c64e5: NOKEY                    ] 1.4 MB/s | 5.1 MB  00:00:17 ETA 
+Public key for spawn-fcgi-1.6.3-5.el7.x86_64.rpm is not installed
+(8/11): spawn-fcgi-1.6.3-5.el7.x86_64.rpm                                                                                                                              |  18 kB  00:00:00     
+(9/11): php-cli-5.4.16-48.el7.x86_64.rpm                                                                                                                               | 2.7 MB  00:00:03     
+(10/11): httpd-2.4.6-99.el7.centos.1.x86_64.rpm                                                                                                                        | 2.7 MB  00:00:04     
+(11/11): centos-logos-70.0.6-3.el7.centos.noarch.rpm                                                                                                                   |  21 MB  00:00:10     
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                                                                                         2.9 MB/s |  29 MB  00:00:10     
+Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+Importing GPG key 0x352C64E5:
+ Userid     : "Fedora EPEL (7) <epel@fedoraproject.org>"
+ Fingerprint: 91e9 7d7c 4a5e 96f1 7f3e 888f 6a2f aea2 352c 64e5
+ Package    : epel-release-7-11.noarch (@extras)
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+Is this ok [y/N]: y
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : apr-1.4.8-7.el7.x86_64                                                                                                                                                    1/11 
+  Installing : apr-util-1.5.2-6.el7_9.1.x86_64                                                                                                                                           2/11 
+  Installing : httpd-tools-2.4.6-99.el7.centos.1.x86_64                                                                                                                                  3/11 
+  Installing : centos-logos-70.0.6-3.el7.centos.noarch                                                                                                                                   4/11 
+  Installing : libzip-0.10.1-8.el7.x86_64                                                                                                                                                5/11 
+  Installing : php-common-5.4.16-48.el7.x86_64                                                                                                                                           6/11 
+  Installing : php-cli-5.4.16-48.el7.x86_64                                                                                                                                              7/11 
+  Installing : mailcap-2.1.41-2.el7.noarch                                                                                                                                               8/11 
+  Installing : httpd-2.4.6-99.el7.centos.1.x86_64                                                                                                                                        9/11 
+  Installing : php-5.4.16-48.el7.x86_64                                                                                                                                                 10/11 
+  Installing : spawn-fcgi-1.6.3-5.el7.x86_64                                                                                                                                            11/11 
+  Verifying  : spawn-fcgi-1.6.3-5.el7.x86_64                                                                                                                                             1/11 
+  Verifying  : mailcap-2.1.41-2.el7.noarch                                                                                                                                               2/11 
+  Verifying  : apr-1.4.8-7.el7.x86_64                                                                                                                                                    3/11 
+  Verifying  : php-cli-5.4.16-48.el7.x86_64                                                                                                                                              4/11 
+  Verifying  : httpd-2.4.6-99.el7.centos.1.x86_64                                                                                                                                        5/11 
+  Verifying  : libzip-0.10.1-8.el7.x86_64                                                                                                                                                6/11 
+  Verifying  : php-common-5.4.16-48.el7.x86_64                                                                                                                                           7/11 
+  Verifying  : php-5.4.16-48.el7.x86_64                                                                                                                                                  8/11 
+  Verifying  : apr-util-1.5.2-6.el7_9.1.x86_64                                                                                                                                           9/11 
+  Verifying  : centos-logos-70.0.6-3.el7.centos.noarch                                                                                                                                  10/11 
+  Verifying  : httpd-tools-2.4.6-99.el7.centos.1.x86_64                                                                                                                                 11/11 
+
+Installed:
+  php.x86_64 0:5.4.16-48.el7                                  php-cli.x86_64 0:5.4.16-48.el7                                  spawn-fcgi.x86_64 0:1.6.3-5.el7                                 
+
+Dependency Installed:
+  apr.x86_64 0:1.4.8-7.el7     apr-util.x86_64 0:1.5.2-6.el7_9.1 centos-logos.noarch 0:70.0.6-3.el7.centos httpd.x86_64 0:2.4.6-99.el7.centos.1 httpd-tools.x86_64 0:2.4.6-99.el7.centos.1
+  libzip.x86_64 0:0.10.1-8.el7 mailcap.noarch 0:2.1.41-2.el7     php-common.x86_64 0:5.4.16-48.el7        
+
+Complete!
+[root@kernel-update vagrant]# yum install epel-release -y && yum install spawn-fcgi php php-cli
+Failed to set locale, defaulting to C
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+^C
+
+Exiting on user cancel
+[root@kernel-update vagrant]# yum install epel-release -y && yum install spawn-fcgi php php-cli
+Failed to set locale, defaulting to C
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+^C
+
+Exiting on user cancel
+[root@kernel-update vagrant]# yum install mod_fcgid httpd -y
+Failed to set locale, defaulting to C
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirror.linux-ia64.org
+ * epel: mirror.linux-ia64.org
+ * extras: mirror.linux-ia64.org
+ * updates: mirror.linux-ia64.org
+Package httpd-2.4.6-99.el7.centos.1.x86_64 already installed and latest version
+Resolving Dependencies
+--> Running transaction check
+---> Package mod_fcgid.x86_64 0:2.3.9-6.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+==============================================================================================================================================================================================
+ Package                                        Arch                                        Version                                           Repository                                 Size
+==============================================================================================================================================================================================
+Installing:
+ mod_fcgid                                      x86_64                                      2.3.9-6.el7                                       base                                       79 k
+
+Transaction Summary
+==============================================================================================================================================================================================
+Install  1 Package
+
+Total download size: 79 k
+Installed size: 228 k
+Downloading packages:
+mod_fcgid-2.3.9-6.el7.x86_64.rpm                                                                                                                                       |  79 kB  00:00:00     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : mod_fcgid-2.3.9-6.el7.x86_64                                                                                                                                               1/1 
+  Verifying  : mod_fcgid-2.3.9-6.el7.x86_64                                                                                                                                               1/1 
+
+Installed:
+  mod_fcgid.x86_64 0:2.3.9-6.el7                                                                                                                                                              
+
+Complete!
+[root@kernel-update vagrant]# 
+[root@kernel-update vagrant]# 
+[root@kernel-update vagrant]# 
+[root@kernel-update vagrant]# 
+[root@kernel-update vagrant]# 
+[root@kernel-update vagrant]# 
+[root@kernel-update vagrant]# vi /etc/sys
+sysconfig/          sysctl.conf         sysctl.d/           systemd/            system-release      system-release-cpe  
+[root@kernel-update vagrant]# vi /etc/sysconfig/spawn-fcgi 
+[root@kernel-update vagrant]# touch /etc/systemd/system/spawn-fcgi.service
+[root@kernel-update vagrant]# vi /etc/systemd/system/spawn-fcgi.service
+[root@kernel-update vagrant]# systemctl start spawn-fcgi.service 
+[root@kernel-update vagrant]# systemctl status spawn-fcgi.service 
+● spawn-fcgi.service - Spawn-fcgi startup service by Otus
+   Loaded: loaded (/etc/systemd/system/spawn-fcgi.service; disabled; vendor preset: disabled)
+   Active: active (running) since Thu 2024-03-28 17:51:58 UTC; 5s ago
+ Main PID: 21830 (php-cgi)
+   CGroup: /system.slice/spawn-fcgi.service
+           ├─21830 /usr/bin/php-cgi
+           ├─21831 /usr/bin/php-cgi
+           ├─21832 /usr/bin/php-cgi
+           ├─21833 /usr/bin/php-cgi
+           ├─21834 /usr/bin/php-cgi
+           ├─21835 /usr/bin/php-cgi
+           ├─21836 /usr/bin/php-cgi
+           ├─21837 /usr/bin/php-cgi
+           ├─21838 /usr/bin/php-cgi
+           ├─21839 /usr/bin/php-cgi
+           ├─21840 /usr/bin/php-cgi
+           ├─21841 /usr/bin/php-cgi
+           ├─21842 /usr/bin/php-cgi
+           ├─21843 /usr/bin/php-cgi
+           ├─21844 /usr/bin/php-cgi
+           ├─21845 /usr/bin/php-cgi
+           ├─21846 /usr/bin/php-cgi
+           ├─21847 /usr/bin/php-cgi
+           ├─21848 /usr/bin/php-cgi
+           ├─21849 /usr/bin/php-cgi
+           ├─21850 /usr/bin/php-cgi
+           ├─21851 /usr/bin/php-cgi
+           ├─21852 /usr/bin/php-cgi
+           ├─21853 /usr/bin/php-cgi
+           ├─21854 /usr/bin/php-cgi
+           ├─21855 /usr/bin/php-cgi
+           ├─21856 /usr/bin/php-cgi
+           ├─21857 /usr/bin/php-cgi
+           ├─21858 /usr/bin/php-cgi
+           ├─21859 /usr/bin/php-cgi
+           ├─21860 /usr/bin/php-cgi
+           ├─21861 /usr/bin/php-cgi
+           └─21862 /usr/bin/php-cgi
+
+Mar 28 17:51:58 kernel-update systemd[1]: Started Spawn-fcgi startup service by Otus.
+[root@kernel-update vagrant]# vi /usr/lib/sys
+sysctl.d/ systemd/  
+[root@kernel-update vagrant]# vi /usr/lib/sys
+sysctl.d/ systemd/  
+[root@kernel-update vagrant]# vi /usr/lib/systemd/
+catalog/                   rhel-readonly              systemd-cgroups-agent      systemd-localed            systemd-remount-fs         systemd-timedated          system-sleep/
+import-pubring.gpg         scripts/                   systemd-coredump           systemd-logind             systemd-reply-password     systemd-udevd              user/
+ntp-units.d/               system/                    systemd-cryptsetup         systemd-machined           systemd-rfkill             systemd-update-done        user-generators/
+rhel-autorelabel           systemd                    systemd-fsck               systemd-machine-id-commit  systemd-shutdown           systemd-update-utmp        user-preset/
+rhel-configure             systemd-ac-power           systemd-hibernate-resume   systemd-modules-load       systemd-shutdownd          systemd-user-sessions      
+rhel-dmesg                 systemd-activate           systemd-hostnamed          systemd-pull               systemd-sleep              systemd-vconsole-setup     
+rhel-domainname            systemd-backlight          systemd-importd            systemd-quotacheck         systemd-socket-proxyd      system-generators/         
+rhel-import-state          systemd-binfmt             systemd-initctl            systemd-random-seed        systemd-sysctl             system-preset/             
+rhel-loadmodules           systemd-bootchart          systemd-journald           systemd-readahead          systemd-sysv-install       system-shutdown/           
+[root@kernel-update vagrant]# vi /usr/lib/systemd/
+catalog/                   rhel-readonly              systemd-cgroups-agent      systemd-localed            systemd-remount-fs         systemd-timedated          system-sleep/
+import-pubring.gpg         scripts/                   systemd-coredump           systemd-logind             systemd-reply-password     systemd-udevd              user/
+ntp-units.d/               system/                    systemd-cryptsetup         systemd-machined           systemd-rfkill             systemd-update-done        user-generators/
+rhel-autorelabel           systemd                    systemd-fsck               systemd-machine-id-commit  systemd-shutdown           systemd-update-utmp        user-preset/
+rhel-configure             systemd-ac-power           systemd-hibernate-resume   systemd-modules-load       systemd-shutdownd          systemd-user-sessions      
+rhel-dmesg                 systemd-activate           systemd-hostnamed          systemd-pull               systemd-sleep              systemd-vconsole-setup     
+rhel-domainname            systemd-backlight          systemd-importd            systemd-quotacheck         systemd-socket-proxyd      system-generators/         
+rhel-import-state          systemd-binfmt             systemd-initctl            systemd-random-seed        systemd-sysctl             system-preset/             
+rhel-loadmodules           systemd-bootchart          systemd-journald           systemd-readahead          systemd-sysv-install       system-shutdown/           
+[root@kernel-update vagrant]# yum instal httpd
+Failed to set locale, defaulting to C
+Loaded plugins: fastestmirror
+No such command: instal. Please use /bin/yum --help
+[root@kernel-update vagrant]# yum install httpd
+Failed to set locale, defaulting to C
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirror.linux-ia64.org
+ * epel: mirror.linux-ia64.org
+ * extras: mirror.linux-ia64.org
+ * updates: mirror.linux-ia64.org
+Package httpd-2.4.6-99.el7.centos.1.x86_64 already installed and latest version
+Nothing to do
+[root@kernel-update vagrant]# vi /usr/lib
+lib/     lib64/   libexec/ 
+[root@kernel-update vagrant]# vi /usr/lib/sys
+sysctl.d/ systemd/  
+[root@kernel-update vagrant]# vi /usr/lib/sys
+sysctl.d/ systemd/  
+[root@kernel-update vagrant]# vi /usr/lib/systemd/system/ht
+htcacheclean.service  httpd.service         
+[root@kernel-update vagrant]# vi /usr/lib/systemd/system/ht
+htcacheclean.service  httpd.service         
+[root@kernel-update vagrant]# vi /usr/lib/systemd/system/httpd.service 
+[root@kernel-update vagrant]# ls -ls /etc/sys
+sysconfig/          sysctl.conf         sysctl.d/           systemd/            system-release      system-release-cpe  
+[root@kernel-update vagrant]# ls -ls /etc/sysconfig/ht
+htcacheclean  httpd         
+[root@kernel-update vagrant]# ls -ls /etc/sysconfig/ht
+htcacheclean  httpd         
+[root@kernel-update vagrant]# touch /etc/sysconfig/httpd-first
+[root@kernel-update vagrant]# touch /etc/sysconfig/httpd-second
+[root@kernel-update vagrant]# vi /etc/sysconfig/httpd-first
+[root@kernel-update vagrant]# vi /etc/sysconfig/httpd-second 
+[root@kernel-update vagrant]# touch /etc/httpd/conf/
+httpd.conf  magic       
+[root@kernel-update vagrant]# history
+    1  cat /etc/sysconfig/watchlog
+    2  touch /etc/sysconfig/watchlog
+    3  vi /etc/sysconfig/watchlog
+    4  cat /etc/sysconfig/watchlog
+    5  touch /var/log/watchlog.log
+    6  vi /var/log/watchlog.log
+    7  vi /etc/sysconfig/watchlog
+    8  cat /var/log/watchlog.log
+    9  touch /opt/watchlog.sh
+   10  vi /opt/watchlog.sh
+   11  chmod +x /opt/watchlog.sh
+   12  ls -la /etc/systemd/system
+   13  cat /etc/systemd/system/system-update.target.wants/systemd-readahead-drop.service 
+   14  mkdir /etc/systemd/system/watchlog
+   15  touch /etc/systemd/system/watchlog/watchlog.service
+   16  chmod +x /etc/systemd/system/watchlog/watchlog.service
+   17  vi /etc/systemd/system/watchlog/watchlog.service
+   18  vi /etc/systemd/system/watchlog/watchlog.service
+   19  touch /etc/systemd/system/watchlog/watchlog.timer
+   20  chmod +x /etc/systemd/system/watchlog/watchlog.timer
+   21  vi /etc/systemd/system/watchlog/watchlog.timer
+   22  systemctl status watchlog.timer
+   23  systemctl start watchlog.timer
+   24  mv /etc/systemd/system/watchlog/watchlog.service /etc/systemd/system
+   25  mv /etc/systemd/system/watchlog/watchlog.timer /etc/systemd/system
+   26  ls -la /etc/systemd/system/watchlog/
+   27  rmdir /etc/systemd/system/watchlog/
+   28  systemctl start watchlog.timer
+   29  tail -f /var/log/messages 
+   30  grep "timer" /var/log/messages 
+   31  chmod -x /etc/systemd/system/watchlog/watchlog.timer
+   32  chmod -x /etc/systemd/system/watchlog.timer
+   33  chmod -x /etc/systemd/system/watchlog.service 
+   34  grep "timer" /var/log/messages 
+   35  systemct status watchlog.timer
+   36  systemctl status watchlog.timer
+   37  tail -f /var/log/messages 
+   38  tail -f /var/log/messages 
+   39  systemctl status watchlog.service
+   40  systemctl start watchlog.service
+   41  journalctl -xe
+   42  vi /opt/watchlog.sh 
+   43  tail -f /var/log/messages 
+   44* yum install epel-release -y && yum ins
+   45  yum install epel-release -y && yum install spawn-fcgi php php-cli
+   46* yum install e
+   47  yum install mod_fcgid httpd -y
+   48  vi /etc/sysconfig/spawn-fcgi 
+   49  touch /etc/systemd/system/spawn-fcgi.service
+   50  vi /etc/systemd/system/spawn-fcgi.service
+   51  systemctl start spawn-fcgi.service 
+   52  systemctl status spawn-fcgi.service 
+   53  yum instal httpd
+   54  yum install httpd
+   55  vi /usr/lib/systemd/system/httpd.service 
+   56  touch /etc/sysconfig/httpd-first
+   57  touch /etc/sysconfig/httpd-second
+   58  vi /etc/sysconfig/httpd-first
+   59  vi /etc/sysconfig/httpd-second 
+   60  history
+[root@kernel-update vagrant]# rm /etc/sysconfig/httpd-second 
+rm: remove regular file '/etc/sysconfig/httpd-second'? y
+[root@kernel-update vagrant]# rm /etc/sysconfig/httpd-first 
+rm: remove regular file '/etc/sysconfig/httpd-first'? y
+[root@kernel-update vagrant]# touch /etc/httpd/conf
+conf/           conf.d/         conf.modules.d/ 
+[root@kernel-update vagrant]# touch /etc/httpd/conf/first.conf
+[root@kernel-update vagrant]# touch /etc/httpd/conf/second.conf
+[root@kernel-update vagrant]# vi /etc/httpd/conf/first.conf
+[root@kernel-update vagrant]# vi /etc/httpd/conf/second.conf 
+[root@kernel-update vagrant]# vi /etc/httpd/conf/second.conf 
+[root@kernel-update vagrant]# 
+[root@kernel-update vagrant]# systemctl status httpd@first
+Unit httpd@first.service could not be found.
+[root@kernel-update vagrant]# systemctl start httpd@first
+Failed to start httpd@first.service: Unit not found.
+[root@kernel-update vagrant]# systemctl status httpd
+● httpd.service - The Apache HTTP Server
+   Loaded: loaded (/usr/lib/systemd/system/httpd.service; disabled; vendor preset: disabled)
+   Active: inactive (dead)
+     Docs: man:httpd(8)
+           man:apachectl(8)
+
+Mar 28 18:09:41 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:9] Failed to resolve specifiers, ignoring: /etc/sysconfig/httpd-%I
+[root@kernel-update vagrant]# vi /usr/lib/sys
+sysctl.d/ systemd/  
+[root@kernel-update vagrant]# vi /usr/lib/systemd/
+catalog/                   rhel-readonly              systemd-cgroups-agent      systemd-localed            systemd-remount-fs         systemd-timedated          system-sleep/
+import-pubring.gpg         scripts/                   systemd-coredump           systemd-logind             systemd-reply-password     systemd-udevd              user/
+ntp-units.d/               system/                    systemd-cryptsetup         systemd-machined           systemd-rfkill             systemd-update-done        user-generators/
+rhel-autorelabel           systemd                    systemd-fsck               systemd-machine-id-commit  systemd-shutdown           systemd-update-utmp        user-preset/
+rhel-configure             systemd-ac-power           systemd-hibernate-resume   systemd-modules-load       systemd-shutdownd          systemd-user-sessions      
+rhel-dmesg                 systemd-activate           systemd-hostnamed          systemd-pull               systemd-sleep              systemd-vconsole-setup     
+rhel-domainname            systemd-backlight          systemd-importd            systemd-quotacheck         systemd-socket-proxyd      system-generators/         
+rhel-import-state          systemd-binfmt             systemd-initctl            systemd-random-seed        systemd-sysctl             system-preset/             
+rhel-loadmodules           systemd-bootchart          systemd-journald           systemd-readahead          systemd-sysv-install       system-shutdown/           
+[root@kernel-update vagrant]# vi /usr/lib/systemd/system/httpd.service 
+[root@kernel-update vagrant]# vi /usr/lib/systemd/system/httpd.service 
+[root@kernel-update vagrant]# cp /usr/lib/systemd/system/httpd.service /root
+[root@kernel-update vagrant]# vi /usr/lib/systemd/system/httpd.service 
+[root@kernel-update vagrant]# systemctl start httpd@first
+Failed to start httpd@first.service: Unit not found.
+[root@kernel-update vagrant]# systemctl start httpd
+Failed to start httpd.service: Unit is not loaded properly: Bad message.
+See system logs and 'systemctl status httpd.service' for details.
+[root@kernel-update vagrant]# status start httpd
+bash: status: command not found
+[root@kernel-update vagrant]# systemctl status httpd
+● httpd.service - The Apache HTTP Server
+   Loaded: error (Reason: Bad message)
+   Active: inactive (dead)
+
+Mar 28 18:09:41 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:9] Failed to resolve specifiers, ignoring: /etc/sysconfig/httpd-%I
+Mar 28 18:13:31 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:5] Failed to add dependency on httpd-, ignoring: Invalid argument
+Mar 28 18:13:31 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:6] Missing '='.
+Mar 28 18:13:51 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:5] Failed to add dependency on httpd-, ignoring: Invalid argument
+Mar 28 18:13:51 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:6] Missing '='.
+[root@kernel-update vagrant]# mv /root/httpd.service /usr/lib/systemd/system/httpd.service 
+mv: overwrite '/usr/lib/systemd/system/httpd.service'? y
+[root@kernel-update vagrant]# systemctl status httpd
+● httpd.service - The Apache HTTP Server
+   Loaded: loaded (/usr/lib/systemd/system/httpd.service; disabled; vendor preset: disabled)
+   Active: inactive (dead)
+     Docs: man:httpd(8)
+           man:apachectl(8)
+
+Mar 28 18:09:41 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:9] Failed to resolve specifiers, ignoring: /etc/sysconfig/httpd-%I
+Mar 28 18:13:31 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:5] Failed to add dependency on httpd-, ignoring: Invalid argument
+Mar 28 18:13:31 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:6] Missing '='.
+Mar 28 18:13:51 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:5] Failed to add dependency on httpd-, ignoring: Invalid argument
+Mar 28 18:13:51 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:6] Missing '='.
+Mar 28 18:15:13 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:9] Failed to resolve specifiers, ignoring: /etc/sysconfig/httpd-%I
+[root@kernel-update vagrant]# systemctl status httpd
+● httpd.service - The Apache HTTP Server
+   Loaded: loaded (/usr/lib/systemd/system/httpd.service; disabled; vendor preset: disabled)
+   Active: inactive (dead)
+     Docs: man:httpd(8)
+           man:apachectl(8)
+
+Mar 28 18:09:41 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:9] Failed to resolve specifiers, ignoring: /etc/sysconfig/httpd-%I
+Mar 28 18:13:31 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:5] Failed to add dependency on httpd-, ignoring: Invalid argument
+Mar 28 18:13:31 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:6] Missing '='.
+Mar 28 18:13:51 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:5] Failed to add dependency on httpd-, ignoring: Invalid argument
+Mar 28 18:13:51 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:6] Missing '='.
+Mar 28 18:15:13 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:9] Failed to resolve specifiers, ignoring: /etc/sysconfig/httpd-%I
+Mar 28 18:15:15 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:9] Failed to resolve specifiers, ignoring: /etc/sysconfig/httpd-%I
+[root@kernel-update vagrant]# systemctl start httpd
+Job for httpd.service failed because a configured resource limit was exceeded. See "systemctl status httpd.service" and "journalctl -xe" for details.
+[root@kernel-update vagrant]# systemctl status httpd
+● httpd.service - The Apache HTTP Server
+   Loaded: loaded (/usr/lib/systemd/system/httpd.service; disabled; vendor preset: disabled)
+   Active: failed (Result: resources)
+     Docs: man:httpd(8)
+           man:apachectl(8)
+
+Mar 28 18:13:51 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:5] Failed to add dependency on httpd-, ignoring: Invalid argument
+Mar 28 18:13:51 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:6] Missing '='.
+Mar 28 18:15:13 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:9] Failed to resolve specifiers, ignoring: /etc/sysconfig/httpd-%I
+Mar 28 18:15:15 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:9] Failed to resolve specifiers, ignoring: /etc/sysconfig/httpd-%I
+Mar 28 18:15:19 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:9] Failed to resolve specifiers, ignoring: /etc/sysconfig/httpd-%I
+Mar 28 18:15:19 kernel-update systemd[1]: Failed to load environment files: No such file or directory
+Mar 28 18:15:19 kernel-update systemd[1]: httpd.service failed to run 'start' task: No such file or directory
+Mar 28 18:15:19 kernel-update systemd[1]: Failed to start The Apache HTTP Server.
+Mar 28 18:15:19 kernel-update systemd[1]: Unit httpd.service entered failed state.
+Mar 28 18:15:19 kernel-update systemd[1]: httpd.service failed.
+[root@kernel-update vagrant]# systemctl start httpd
+Job for httpd.service failed because a configured resource limit was exceeded. See "systemctl status httpd.service" and "journalctl -xe" for details.
+[root@kernel-update vagrant]# journalctl -xe
+Mar 28 18:15:54 kernel-update systemd[1]: Failed to load environment files: No such file or directory
+Mar 28 18:15:54 kernel-update systemd[1]: httpd.service failed to run 'start' task: No such file or directory
+Mar 28 18:15:54 kernel-update systemd[1]: Failed to start The Apache HTTP Server.
+-- Subject: Unit httpd.service has failed
+-- Defined-By: systemd
+-- Support: http://lists.freedesktop.org/mailman/listinfo/systemd-devel
+-- 
+-- Unit httpd.service has failed.
+-- 
+-- The result is failed.
+Mar 28 18:15:54 kernel-update systemd[1]: httpd.service failed.
+Mar 28 18:15:54 kernel-update systemd[1]: Started My watchlog service.
+-- Subject: Unit watchlog.service has finished start-up
+-- Defined-By: systemd
+-- Support: http://lists.freedesktop.org/mailman/listinfo/systemd-devel
+-- 
+-- Unit watchlog.service has finished starting up.
+-- 
+-- The start-up result is done.
+Mar 28 18:15:54 kernel-update polkitd[357]: Unregistered Authentication Agent for unix-process:22782:513035 (system bus name :1.54, object path /org/freedesktop/PolicyKit1/AuthenticationAgen
+[root@kernel-update vagrant]# ps aux | grep httpd
+root     22807  0.0  0.0  12500   688 pts/1    S+   18:16   0:00 grep --color=auto httpd
+[root@kernel-update vagrant]# exit
+[vagrant@kernel-update ~]$ exit
+Script done, file is systemd.log
+[vagrant@kernel-update ~]$ logout
+konstantin@konstantin-Aspire-A515-52G:~/Desktop/Otus/systemd$ vagrant ssh
+Last login: Thu Mar 28 16:51:52 2024 from 10.0.2.2
+[vagrant@kernel-update ~]$ 
+[vagrant@kernel-update ~]$ 
+[vagrant@kernel-update ~]$ 
+[vagrant@kernel-update ~]$ 
+[vagrant@kernel-update ~]$ 
+[vagrant@kernel-update ~]$ 
+[vagrant@kernel-update ~]$ 
+[vagrant@kernel-update ~]$ 
+[vagrant@kernel-update ~]$ 
+[vagrant@kernel-update ~]$ 
+[vagrant@kernel-update ~]$ 
+[vagrant@kernel-update ~]$ 
+[vagrant@kernel-update ~]$ 
+[vagrant@kernel-update ~]$ cat 
+.bash_history  .bash_logout   .bash_profile  .bashrc        .ssh/          systemd.log    
+[vagrant@kernel-update ~]$ cat systemd.log 
+Script started on Thu Mar 28 16:52:45 2024
+[vagrant@kernel-update ~]$ sudo su
+[root@kernel-update vagrant]# cat /etc/sysconfig/watchlog
+cat: /etc/sysconfig/watchlog: No such file or directory
+[root@kernel-update vagrant]# chmod +x /etc/systemd/system/watchlog/watchlog.service
+[root@kernel-update vagrant]# vi /etc/systemd/system/watchlog/watchlog.service
+[root@kernel-update vagrant]# vi /etc/systemd/system/watchlog/watchlog.service
+[root@kernel-update vagrant]# touch /etc/systemd/system/watchlog/watchlog.timer
+[root@kernel-update vagrant]# chmod +x /etc/systemd/system/watchlog/watchlog.timer
+[root@kernel-update vagrant]# vi /etc/systemd/system/watchlog/watchlog.timer
+[root@kernel-update vagrant]# 
+[root@kernel-update vagrant]# systemctl status watchlog.timer
+Unit watchlog.timer could not be found.
+[root@kernel-update vagrant]# systemctl start watchlog.timer
+Failed to start watchlog.timer: Unit not found.
+[root@kernel-update vagrant]# vi /etc/systemd/system/watchlog/watchlog.
+watchlog.service  watchlog.timer    
+[root@kernel-update vagrant]# mv /etc/systemd/system/watchlog/watchlog.service /etc/systemd/system
+[root@kernel-update vagrant]# mv /etc/systemd/system/watchlog/watchlog.timer /etc/systemd/system
+[root@kernel-update vagrant]# ls -la /etc/systemd/system/watchlog/
+total 4
+drwxr-xr-x.  2 root root    6 Mar 28 17:29 .
+drwxr-xr-x. 15 root root 4096 Mar 28 17:29 ..
+[root@kernel-update vagrant]# rmdir /etc/systemd/system/watchlog/
+[root@kernel-update vagrant]# ls -la /etc/sys
+sysconfig/          sysctl.conf         sysctl.d/           systemd/            system-release      system-release-cpe  
+[root@kernel-update vagrant]# ls -la /etc/systemd/system/watchlog.
+watchlog.service  watchlog.timer    
+[root@kernel-update vagrant]# systemctl start watchlog.timer
+[root@kernel-update vagrant]# 
+
+
+[root@kernel-update vagrant]# tail -f /var/log/messages 
+Mar 28 16:51:52 localhost systemd: Started Session 3 of user vagrant.
+Mar 28 16:52:50 localhost su: (to root) vagrant on pts/1
+Mar 28 16:55:59 localhost systemd-udevd: Network interface NamePolicy= disabled on kernel command line, ignoring.
+Mar 28 17:01:01 localhost systemd: Created slice User Slice of root.
+Mar 28 17:01:01 localhost systemd: Started Session 4 of user root.
+Mar 28 17:05:28 localhost systemd: Starting Cleanup of Temporary Directories...
+Mar 28 17:05:28 localhost systemd: Started Cleanup of Temporary Directories.
+Mar 28 17:30:51 localhost systemd: Configuration file /etc/systemd/system/watchlog.timer is marked executable. Please remove executable permission bits. Proceeding anyway.
+Mar 28 17:30:51 localhost systemd: Configuration file /etc/systemd/system/watchlog.service is marked executable. Please remove executable permission bits. Proceeding anyway.
+Mar 28 17:30:51 localhost systemd: Started Run watchlog script every 30 second.
+q^C
+[root@kernel-update vagrant]# grep "timer" /var/log/messages 
+Mar 28 16:50:22 localhost kernel: Command line: BOOT_IMAGE=/boot/vmlinuz-3.10.0-1127.el7.x86_64 root=UUID=1c419d6c-5064-4a2b-953c-05b2c67edb15 ro no_timer_check console=tty0 console=ttyS0,115200n8 net.ifnames=0 biosdevname=0 elevator=noop crashkernel=auto LANG=en_US.UTF-8
+Mar 28 16:50:22 localhost kernel: Kernel command line: BOOT_IMAGE=/boot/vmlinuz-3.10.0-1127.el7.x86_64 root=UUID=1c419d6c-5064-4a2b-953c-05b2c67edb15 ro no_timer_check console=tty0 console=ttyS0,115200n8 net.ifnames=0 biosdevname=0 elevator=noop crashkernel=auto LANG=en_US.UTF-8
+Mar 28 16:50:22 localhost kernel: RAPL PMU: API unit is 2^-32 Joules, 5 fixed counters, 10737418240 ms ovfl timer
+Mar 28 17:30:51 localhost systemd: Configuration file /etc/systemd/system/watchlog.timer is marked executable. Please remove executable permission bits. Proceeding anyway.
+[root@kernel-update vagrant]# chmod -x /etc/systemd/system/watchlog/watchlog.timer
+chmod: cannot access '/etc/systemd/system/watchlog/watchlog.timer': No such file or directory
+[root@kernel-update vagrant]# chmod -x /etc/systemd/system/watchlog.timer
+[root@kernel-update vagrant]# chmod -x /etc/systemd/system/watchlog.
+watchlog.service  watchlog.timer    
+[root@kernel-update vagrant]# chmod -x /etc/systemd/system/watchlog.service 
+[root@kernel-update vagrant]# grep "timer" /var/log/messages 
+Mar 28 16:50:22 localhost kernel: Command line: BOOT_IMAGE=/boot/vmlinuz-3.10.0-1127.el7.x86_64 root=UUID=1c419d6c-5064-4a2b-953c-05b2c67edb15 ro no_timer_check console=tty0 console=ttyS0,115200n8 net.ifnames=0 biosdevname=0 elevator=noop crashkernel=auto LANG=en_US.UTF-8
+Mar 28 16:50:22 localhost kernel: Kernel command line: BOOT_IMAGE=/boot/vmlinuz-3.10.0-1127.el7.x86_64 root=UUID=1c419d6c-5064-4a2b-953c-05b2c67edb15 ro no_timer_check console=tty0 console=ttyS0,115200n8 net.ifnames=0 biosdevname=0 elevator=noop crashkernel=auto LANG=en_US.UTF-8
+Mar 28 16:50:22 localhost kernel: RAPL PMU: API unit is 2^-32 Joules, 5 fixed counters, 10737418240 ms ovfl timer
+Mar 28 17:30:51 localhost systemd: Configuration file /etc/systemd/system/watchlog.timer is marked executable. Please remove executable permission bits. Proceeding anyway.
+[root@kernel-update vagrant]# 
+[root@kernel-update vagrant]# systemct status watchlog.timer
+bash: systemct: command not found
+[root@kernel-update vagrant]# systemctl status watchlog.timer
+● watchlog.timer - Run watchlog script every 30 second
+   Loaded: loaded (/etc/systemd/system/watchlog.timer; disabled; vendor preset: disabled)
+   Active: active (elapsed) since Thu 2024-03-28 17:30:51 UTC; 3min 40s ago
+
+Mar 28 17:30:51 kernel-update systemd[1]: Started Run watchlog script every 30 second.
+[root@kernel-update vagrant]# tail -f /var/log/messages 
+Mar 28 16:51:52 localhost systemd: Started Session 3 of user vagrant.
+Mar 28 16:52:50 localhost su: (to root) vagrant on pts/1
+Mar 28 16:55:59 localhost systemd-udevd: Network interface NamePolicy= disabled on kernel command line, ignoring.
+Mar 28 17:01:01 localhost systemd: Created slice User Slice of root.
+Mar 28 17:01:01 localhost systemd: Started Session 4 of user root.
+Mar 28 17:05:28 localhost systemd: Starting Cleanup of Temporary Directories...
+Mar 28 17:05:28 localhost systemd: Started Cleanup of Temporary Directories.
+Mar 28 17:30:51 localhost systemd: Configuration file /etc/systemd/system/watchlog.timer is marked executable. Please remove executable permission bits. Proceeding anyway.
+Mar 28 17:30:51 localhost systemd: Configuration file /etc/systemd/system/watchlog.service is marked executable. Please remove executable permission bits. Proceeding anyway.
+Mar 28 17:30:51 localhost systemd: Started Run watchlog script every 30 second.
+^C
+[root@kernel-update vagrant]# tail -f /var/log/messages 
+Mar 28 16:51:52 localhost systemd: Started Session 3 of user vagrant.
+Mar 28 16:52:50 localhost su: (to root) vagrant on pts/1
+Mar 28 16:55:59 localhost systemd-udevd: Network interface NamePolicy= disabled on kernel command line, ignoring.
+Mar 28 17:01:01 localhost systemd: Created slice User Slice of root.
+Mar 28 17:01:01 localhost systemd: Started Session 4 of user root.
+Mar 28 17:05:28 localhost systemd: Starting Cleanup of Temporary Directories...
+Mar 28 17:05:28 localhost systemd: Started Cleanup of Temporary Directories.
+Mar 28 17:30:51 localhost systemd: Configuration file /etc/systemd/system/watchlog.timer is marked executable. Please remove executable permission bits. Proceeding anyway.
+Mar 28 17:30:51 localhost systemd: Configuration file /etc/systemd/system/watchlog.service is marked executable. Please remove executable permission bits. Proceeding anyway.
+Mar 28 17:30:51 localhost systemd: Started Run watchlog script every 30 second.
+^C
+[root@kernel-update vagrant]# systemctl status watchlog.service
+● watchlog.service - My watchlog service
+   Loaded: loaded (/etc/systemd/system/watchlog.service; static; vendor preset: disabled)
+   Active: inactive (dead)
+[root@kernel-update vagrant]# systemctl start watchlog.service
+Job for watchlog.service failed because the control process exited with error code. See "systemctl status watchlog.service" and "journalctl -xe" for details.
+[root@kernel-update vagrant]# journalctl -xe
+Mar 28 17:36:58 kernel-update systemd[21289]: Failed at step EXEC spawning /opt/watchlog.sh: Exec format error
+-- Subject: Process /opt/watchlog.sh could not be executed
+-- Defined-By: systemd
+-- Support: http://lists.freedesktop.org/mailman/listinfo/systemd-devel
+-- 
+-- The process /opt/watchlog.sh could not be executed and failed.
+-- 
+-- The error number returned by this process is 8.
+Mar 28 17:36:58 kernel-update systemd[1]: watchlog.service: main process exited, code=exited, status=203/EXEC
+Mar 28 17:36:58 kernel-update systemd[1]: Failed to start My watchlog service.
+-- Subject: Unit watchlog.service has failed
+-- Defined-By: systemd
+-- Support: http://lists.freedesktop.org/mailman/listinfo/systemd-devel
+-- 
+-- Unit watchlog.service has failed.
+-- 
+-- The result is failed.
+Mar 28 17:36:58 kernel-update systemd[1]: Unit watchlog.service entered failed state.
+Mar 28 17:36:58 kernel-update systemd[1]: watchlog.service failed.
+Mar 28 17:36:58 kernel-update polkitd[357]: Unregistered Authentication Agent for unix-process:21283:279460 (system bus name :1.46, object path /o
+[root@kernel-update vagrant]# vi /opt/watchlog.sh 
+[root@kernel-update vagrant]# tail -f /var/log/messages 
+Mar 28 17:37:28 localhost systemd: watchlog.service: main process exited, code=exited, status=203/EXEC
+Mar 28 17:37:28 localhost systemd: Failed to start My watchlog service.
+Mar 28 17:37:28 localhost systemd: Unit watchlog.service entered failed state.
+Mar 28 17:37:28 localhost systemd: watchlog.service failed.
+Mar 28 17:38:28 localhost systemd: Starting My watchlog service...
+Mar 28 17:38:28 localhost systemd: Failed at step EXEC spawning /opt/watchlog.sh: Exec format error
+Mar 28 17:38:28 localhost systemd: watchlog.service: main process exited, code=exited, status=203/EXEC
+Mar 28 17:38:28 localhost systemd: Failed to start My watchlog service.
+Mar 28 17:38:28 localhost systemd: Unit watchlog.service entered failed state.
+Mar 28 17:38:28 localhost systemd: watchlog.service failed.
+Mar 28 17:39:28 localhost systemd: Starting My watchlog service...
+Mar 28 17:39:28 localhost root: Thu Mar 28 17:39:28 UTC 2024: I found word, Master!
+Mar 28 17:39:28 localhost systemd: Started My watchlog service.
+^C
+[root@kernel-update vagrant]# yum install epel-release -y && yum install spawn-fcgi php php-cli
+Failed to set locale, defaulting to C
+Loaded plugins: fastestmirror
+Determining fastest mirrors
+ * base: mirror.linux-ia64.org
+ * extras: mirror.linux-ia64.org
+ * updates: mirror.linux-ia64.org
+base                                                                                                                       | 3.6 kB  00:00:00     
+extras                                                                                                                     | 2.9 kB  00:00:00     
+updates                                                                                                                    | 2.9 kB  00:00:00     
+(1/4): extras/7/x86_64/primary_db                                                                                          | 254 kB  00:00:00     
+(2/4): base/7/x86_64/group_gz                                                                                              | 153 kB  00:00:00     
+(3/4): base/7/x86_64/primary_db                                                                                            | 6.1 MB  00:00:03     
+(4/4): updates/7/x86_64/primary_db                                                                                         |  26 MB  00:00:27     
+Resolving Dependencies
+--> Running transaction check
+---> Package epel-release.noarch 0:7-11 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+==================================================================================================================================================
+ Package                                Arch                             Version                           Repository                        Size
+==================================================================================================================================================
+Installing:
+ epel-release                           noarch                           7-11                              extras                            15 k
+
+Transaction Summary
+==================================================================================================================================================
+Install  1 Package
+
+Total download size: 15 k
+Installed size: 24 k
+Downloading packages:
+warning: /var/cache/yum/x86_64/7/extras/packages/epel-release-7-11.noarch.rpm: Header V3 RSA/SHA256 Signature, key ID f4a80eb5: NOKEY
+Public key for epel-release-7-11.noarch.rpm is not installed
+epel-release-7-11.noarch.rpm                                                                                               |  15 kB  00:00:00     
+Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+Importing GPG key 0xF4A80EB5:
+ Userid     : "CentOS-7 Key (CentOS 7 Official Signing Key) <security@centos.org>"
+ Fingerprint: 6341 ab27 53d7 8a78 a7c2 7bb1 24c6 a8a7 f4a8 0eb5
+ Package    : centos-release-7-8.2003.0.el7.centos.x86_64 (@anaconda)
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : epel-release-7-11.noarch                                                                                                       1/1 
+  Verifying  : epel-release-7-11.noarch                                                                                                       1/1 
+
+Installed:
+  epel-release.noarch 0:7-11                                                                                                                      
+
+Complete!
+Failed to set locale, defaulting to C
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+epel/x86_64/metalink                                                                                                       |  30 kB  00:00:00     
+ * base: mirror.linux-ia64.org
+ * epel: mirror.linux-ia64.org
+ * extras: mirror.linux-ia64.org
+ * updates: mirror.linux-ia64.org
+epel                                                                                                                       | 4.7 kB  00:00:00     
+(1/3): epel/x86_64/group_gz                                                                                                | 100 kB  00:00:00     
+(2/3): epel/x86_64/updateinfo                                                                                              | 1.0 MB  00:00:00     
+(3/3): epel/x86_64/primary_db                                                                                                                                          | 7.0 MB  00:00:05     
+Resolving Dependencies
+--> Running transaction check
+---> Package php.x86_64 0:5.4.16-48.el7 will be installed
+--> Processing Dependency: php-common(x86-64) = 5.4.16-48.el7 for package: php-5.4.16-48.el7.x86_64
+--> Processing Dependency: httpd-mmn = 20120211x8664 for package: php-5.4.16-48.el7.x86_64
+--> Processing Dependency: httpd for package: php-5.4.16-48.el7.x86_64
+---> Package php-cli.x86_64 0:5.4.16-48.el7 will be installed
+---> Package spawn-fcgi.x86_64 0:1.6.3-5.el7 will be installed
+--> Running transaction check
+---> Package httpd.x86_64 0:2.4.6-99.el7.centos.1 will be installed
+--> Processing Dependency: httpd-tools = 2.4.6-99.el7.centos.1 for package: httpd-2.4.6-99.el7.centos.1.x86_64
+--> Processing Dependency: system-logos >= 7.92.1-1 for package: httpd-2.4.6-99.el7.centos.1.x86_64
+--> Processing Dependency: /etc/mime.types for package: httpd-2.4.6-99.el7.centos.1.x86_64
+--> Processing Dependency: libaprutil-1.so.0()(64bit) for package: httpd-2.4.6-99.el7.centos.1.x86_64
+--> Processing Dependency: libapr-1.so.0()(64bit) for package: httpd-2.4.6-99.el7.centos.1.x86_64
+---> Package php-common.x86_64 0:5.4.16-48.el7 will be installed
+--> Processing Dependency: libzip.so.2()(64bit) for package: php-common-5.4.16-48.el7.x86_64
+--> Running transaction check
+---> Package apr.x86_64 0:1.4.8-7.el7 will be installed
+---> Package apr-util.x86_64 0:1.5.2-6.el7_9.1 will be installed
+---> Package centos-logos.noarch 0:70.0.6-3.el7.centos will be installed
+---> Package httpd-tools.x86_64 0:2.4.6-99.el7.centos.1 will be installed
+---> Package libzip.x86_64 0:0.10.1-8.el7 will be installed
+---> Package mailcap.noarch 0:2.1.41-2.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+==============================================================================================================================================================================================
+ Package                                       Arch                                    Version                                                 Repository                                Size
+==============================================================================================================================================================================================
+Installing:
+ php                                           x86_64                                  5.4.16-48.el7                                           base                                     1.4 M
+ php-cli                                       x86_64                                  5.4.16-48.el7                                           base                                     2.7 M
+ spawn-fcgi                                    x86_64                                  1.6.3-5.el7                                             epel                                      18 k
+Installing for dependencies:
+ apr                                           x86_64                                  1.4.8-7.el7                                             base                                     104 k
+ apr-util                                      x86_64                                  1.5.2-6.el7_9.1                                         updates                                   92 k
+ centos-logos                                  noarch                                  70.0.6-3.el7.centos                                     base                                      21 M
+ httpd                                         x86_64                                  2.4.6-99.el7.centos.1                                   updates                                  2.7 M
+ httpd-tools                                   x86_64                                  2.4.6-99.el7.centos.1                                   updates                                   94 k
+ libzip                                        x86_64                                  0.10.1-8.el7                                            base                                      48 k
+ mailcap                                       noarch                                  2.1.41-2.el7                                            base                                      31 k
+ php-common                                    x86_64                                  5.4.16-48.el7                                           base                                     565 k
+
+Transaction Summary
+==============================================================================================================================================================================================
+Install  3 Packages (+8 Dependent packages)
+
+Total download size: 29 M
+Installed size: 49 M
+Is this ok [y/d/N]: y
+Is this ok [y/d/N]: y
+Downloading packages:
+(1/11): apr-1.4.8-7.el7.x86_64.rpm                                                                                                                                     | 104 kB  00:00:00     
+(2/11): apr-util-1.5.2-6.el7_9.1.x86_64.rpm                                                                                                                            |  92 kB  00:00:00     
+(3/11): libzip-0.10.1-8.el7.x86_64.rpm                                                                                                                                 |  48 kB  00:00:00     
+(4/11): httpd-tools-2.4.6-99.el7.centos.1.x86_64.rpm                                                                                                                   |  94 kB  00:00:00     
+(5/11): mailcap-2.1.41-2.el7.noarch.rpm                                                                                                                                |  31 kB  00:00:00     
+(6/11): php-5.4.16-48.el7.x86_64.rpm                                                                                                                                   | 1.4 MB  00:00:01     
+(7/11): php-common-5.4.16-48.el7.x86_64.rpm                                                                                                                            | 565 kB  00:00:01     
+warning: /var/cache/yum/x86_64/7/epel/packages/spawn-fcgi-1.6.3-5.el7.x86_64.rpm: Header V3 RSA/SHA256 Signature, key ID 352c64e5: NOKEY                    ] 1.4 MB/s | 5.1 MB  00:00:17 ETA 
+Public key for spawn-fcgi-1.6.3-5.el7.x86_64.rpm is not installed
+(8/11): spawn-fcgi-1.6.3-5.el7.x86_64.rpm                                                                                                                              |  18 kB  00:00:00     
+(9/11): php-cli-5.4.16-48.el7.x86_64.rpm                                                                                                                               | 2.7 MB  00:00:03     
+(10/11): httpd-2.4.6-99.el7.centos.1.x86_64.rpm                                                                                                                        | 2.7 MB  00:00:04     
+(11/11): centos-logos-70.0.6-3.el7.centos.noarch.rpm                                                                                                                   |  21 MB  00:00:10     
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                                                                                         2.9 MB/s |  29 MB  00:00:10     
+Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+Importing GPG key 0x352C64E5:
+ Userid     : "Fedora EPEL (7) <epel@fedoraproject.org>"
+ Fingerprint: 91e9 7d7c 4a5e 96f1 7f3e 888f 6a2f aea2 352c 64e5
+ Package    : epel-release-7-11.noarch (@extras)
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+Is this ok [y/N]: y
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : apr-1.4.8-7.el7.x86_64                                                                                                                                                    1/11 
+  Installing : apr-util-1.5.2-6.el7_9.1.x86_64                                                                                                                                           2/11 
+  Installing : httpd-tools-2.4.6-99.el7.centos.1.x86_64                                                                                                                                  3/11 
+  Installing : centos-logos-70.0.6-3.el7.centos.noarch                                                                                                                                   4/11 
+  Installing : libzip-0.10.1-8.el7.x86_64                                                                                                                                                5/11 
+  Installing : php-common-5.4.16-48.el7.x86_64                                                                                                                                           6/11 
+  Installing : php-cli-5.4.16-48.el7.x86_64                                                                                                                                              7/11 
+  Installing : mailcap-2.1.41-2.el7.noarch                                                                                                                                               8/11 
+  Installing : httpd-2.4.6-99.el7.centos.1.x86_64                                                                                                                                        9/11 
+  Installing : php-5.4.16-48.el7.x86_64                                                                                                                                                 10/11 
+  Installing : spawn-fcgi-1.6.3-5.el7.x86_64                                                                                                                                            11/11 
+  Verifying  : spawn-fcgi-1.6.3-5.el7.x86_64                                                                                                                                             1/11 
+  Verifying  : mailcap-2.1.41-2.el7.noarch                                                                                                                                               2/11 
+  Verifying  : apr-1.4.8-7.el7.x86_64                                                                                                                                                    3/11 
+  Verifying  : php-cli-5.4.16-48.el7.x86_64                                                                                                                                              4/11 
+  Verifying  : httpd-2.4.6-99.el7.centos.1.x86_64                                                                                                                                        5/11 
+  Verifying  : libzip-0.10.1-8.el7.x86_64                                                                                                                                                6/11 
+  Verifying  : php-common-5.4.16-48.el7.x86_64                                                                                                                                           7/11 
+  Verifying  : php-5.4.16-48.el7.x86_64                                                                                                                                                  8/11 
+  Verifying  : apr-util-1.5.2-6.el7_9.1.x86_64                                                                                                                                           9/11 
+  Verifying  : centos-logos-70.0.6-3.el7.centos.noarch                                                                                                                                  10/11 
+  Verifying  : httpd-tools-2.4.6-99.el7.centos.1.x86_64                                                                                                                                 11/11 
+
+Installed:
+  php.x86_64 0:5.4.16-48.el7                                  php-cli.x86_64 0:5.4.16-48.el7                                  spawn-fcgi.x86_64 0:1.6.3-5.el7                                 
+
+Dependency Installed:
+  apr.x86_64 0:1.4.8-7.el7     apr-util.x86_64 0:1.5.2-6.el7_9.1 centos-logos.noarch 0:70.0.6-3.el7.centos httpd.x86_64 0:2.4.6-99.el7.centos.1 httpd-tools.x86_64 0:2.4.6-99.el7.centos.1
+  libzip.x86_64 0:0.10.1-8.el7 mailcap.noarch 0:2.1.41-2.el7     php-common.x86_64 0:5.4.16-48.el7        
+
+Complete!
+[root@kernel-update vagrant]# yum install epel-release -y && yum install spawn-fcgi php php-cli
+Failed to set locale, defaulting to C
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+^C
+
+Exiting on user cancel
+[root@kernel-update vagrant]# yum install epel-release -y && yum install spawn-fcgi php php-cli
+Failed to set locale, defaulting to C
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+^C
+
+Exiting on user cancel
+[root@kernel-update vagrant]# yum install mod_fcgid httpd -y
+Failed to set locale, defaulting to C
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirror.linux-ia64.org
+ * epel: mirror.linux-ia64.org
+ * extras: mirror.linux-ia64.org
+ * updates: mirror.linux-ia64.org
+Package httpd-2.4.6-99.el7.centos.1.x86_64 already installed and latest version
+Resolving Dependencies
+--> Running transaction check
+---> Package mod_fcgid.x86_64 0:2.3.9-6.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+==============================================================================================================================================================================================
+ Package                                        Arch                                        Version                                           Repository                                 Size
+==============================================================================================================================================================================================
+Installing:
+ mod_fcgid                                      x86_64                                      2.3.9-6.el7                                       base                                       79 k
+
+Transaction Summary
+==============================================================================================================================================================================================
+Install  1 Package
+
+Total download size: 79 k
+Installed size: 228 k
+Downloading packages:
+mod_fcgid-2.3.9-6.el7.x86_64.rpm                                                                                                                                       |  79 kB  00:00:00     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : mod_fcgid-2.3.9-6.el7.x86_64                                                                                                                                               1/1 
+  Verifying  : mod_fcgid-2.3.9-6.el7.x86_64                                                                                                                                               1/1 
+
+Installed:
+  mod_fcgid.x86_64 0:2.3.9-6.el7                                                                                                                                                              
+
+Complete!
+[root@kernel-update vagrant]# 
+[root@kernel-update vagrant]# 
+[root@kernel-update vagrant]# 
+[root@kernel-update vagrant]# 
+[root@kernel-update vagrant]# 
+[root@kernel-update vagrant]# 
+[root@kernel-update vagrant]# vi /etc/sys
+sysconfig/          sysctl.conf         sysctl.d/           systemd/            system-release      system-release-cpe  
+[root@kernel-update vagrant]# vi /etc/sysconfig/spawn-fcgi 
+[root@kernel-update vagrant]# touch /etc/systemd/system/spawn-fcgi.service
+[root@kernel-update vagrant]# vi /etc/systemd/system/spawn-fcgi.service
+[root@kernel-update vagrant]# systemctl start spawn-fcgi.service 
+[root@kernel-update vagrant]# systemctl status spawn-fcgi.service 
+● spawn-fcgi.service - Spawn-fcgi startup service by Otus
+   Loaded: loaded (/etc/systemd/system/spawn-fcgi.service; disabled; vendor preset: disabled)
+   Active: active (running) since Thu 2024-03-28 17:51:58 UTC; 5s ago
+ Main PID: 21830 (php-cgi)
+   CGroup: /system.slice/spawn-fcgi.service
+           ├─21830 /usr/bin/php-cgi
+           ├─21831 /usr/bin/php-cgi
+           ├─21832 /usr/bin/php-cgi
+           ├─21833 /usr/bin/php-cgi
+           ├─21834 /usr/bin/php-cgi
+           ├─21835 /usr/bin/php-cgi
+           ├─21836 /usr/bin/php-cgi
+           ├─21837 /usr/bin/php-cgi
+           ├─21838 /usr/bin/php-cgi
+           ├─21839 /usr/bin/php-cgi
+           ├─21840 /usr/bin/php-cgi
+           ├─21841 /usr/bin/php-cgi
+           ├─21842 /usr/bin/php-cgi
+           ├─21843 /usr/bin/php-cgi
+           ├─21844 /usr/bin/php-cgi
+           ├─21845 /usr/bin/php-cgi
+           ├─21846 /usr/bin/php-cgi
+           ├─21847 /usr/bin/php-cgi
+           ├─21848 /usr/bin/php-cgi
+           ├─21849 /usr/bin/php-cgi
+           ├─21850 /usr/bin/php-cgi
+           ├─21851 /usr/bin/php-cgi
+           ├─21852 /usr/bin/php-cgi
+           ├─21853 /usr/bin/php-cgi
+           ├─21854 /usr/bin/php-cgi
+           ├─21855 /usr/bin/php-cgi
+           ├─21856 /usr/bin/php-cgi
+           ├─21857 /usr/bin/php-cgi
+           ├─21858 /usr/bin/php-cgi
+           ├─21859 /usr/bin/php-cgi
+           ├─21860 /usr/bin/php-cgi
+           ├─21861 /usr/bin/php-cgi
+           └─21862 /usr/bin/php-cgi
+
+Mar 28 17:51:58 kernel-update systemd[1]: Started Spawn-fcgi startup service by Otus.
+[root@kernel-update vagrant]# vi /usr/lib/sys
+sysctl.d/ systemd/  
+[root@kernel-update vagrant]# vi /usr/lib/sys
+sysctl.d/ systemd/  
+[root@kernel-update vagrant]# vi /usr/lib/systemd/
+catalog/                   rhel-readonly              systemd-cgroups-agent      systemd-localed            systemd-remount-fs         systemd-timedated          system-sleep/
+import-pubring.gpg         scripts/                   systemd-coredump           systemd-logind             systemd-reply-password     systemd-udevd              user/
+ntp-units.d/               system/                    systemd-cryptsetup         systemd-machined           systemd-rfkill             systemd-update-done        user-generators/
+rhel-autorelabel           systemd                    systemd-fsck               systemd-machine-id-commit  systemd-shutdown           systemd-update-utmp        user-preset/
+rhel-configure             systemd-ac-power           systemd-hibernate-resume   systemd-modules-load       systemd-shutdownd          systemd-user-sessions      
+rhel-dmesg                 systemd-activate           systemd-hostnamed          systemd-pull               systemd-sleep              systemd-vconsole-setup     
+rhel-domainname            systemd-backlight          systemd-importd            systemd-quotacheck         systemd-socket-proxyd      system-generators/         
+rhel-import-state          systemd-binfmt             systemd-initctl            systemd-random-seed        systemd-sysctl             system-preset/             
+rhel-loadmodules           systemd-bootchart          systemd-journald           systemd-readahead          systemd-sysv-install       system-shutdown/           
+[root@kernel-update vagrant]# vi /usr/lib/systemd/
+catalog/                   rhel-readonly              systemd-cgroups-agent      systemd-localed            systemd-remount-fs         systemd-timedated          system-sleep/
+import-pubring.gpg         scripts/                   systemd-coredump           systemd-logind             systemd-reply-password     systemd-udevd              user/
+ntp-units.d/               system/                    systemd-cryptsetup         systemd-machined           systemd-rfkill             systemd-update-done        user-generators/
+rhel-autorelabel           systemd                    systemd-fsck               systemd-machine-id-commit  systemd-shutdown           systemd-update-utmp        user-preset/
+rhel-configure             systemd-ac-power           systemd-hibernate-resume   systemd-modules-load       systemd-shutdownd          systemd-user-sessions      
+rhel-dmesg                 systemd-activate           systemd-hostnamed          systemd-pull               systemd-sleep              systemd-vconsole-setup     
+rhel-domainname            systemd-backlight          systemd-importd            systemd-quotacheck         systemd-socket-proxyd      system-generators/         
+rhel-import-state          systemd-binfmt             systemd-initctl            systemd-random-seed        systemd-sysctl             system-preset/             
+rhel-loadmodules           systemd-bootchart          systemd-journald           systemd-readahead          systemd-sysv-install       system-shutdown/           
+[root@kernel-update vagrant]# yum instal httpd
+Failed to set locale, defaulting to C
+Loaded plugins: fastestmirror
+No such command: instal. Please use /bin/yum --help
+[root@kernel-update vagrant]# yum install httpd
+Failed to set locale, defaulting to C
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirror.linux-ia64.org
+ * epel: mirror.linux-ia64.org
+ * extras: mirror.linux-ia64.org
+ * updates: mirror.linux-ia64.org
+Package httpd-2.4.6-99.el7.centos.1.x86_64 already installed and latest version
+Nothing to do
+[root@kernel-update vagrant]# vi /usr/lib
+lib/     lib64/   libexec/ 
+[root@kernel-update vagrant]# vi /usr/lib/sys
+sysctl.d/ systemd/  
+[root@kernel-update vagrant]# vi /usr/lib/sys
+sysctl.d/ systemd/  
+[root@kernel-update vagrant]# vi /usr/lib/systemd/system/ht
+htcacheclean.service  httpd.service         
+[root@kernel-update vagrant]# vi /usr/lib/systemd/system/ht
+htcacheclean.service  httpd.service         
+[root@kernel-update vagrant]# vi /usr/lib/systemd/system/httpd.service 
+[root@kernel-update vagrant]# ls -ls /etc/sys
+sysconfig/          sysctl.conf         sysctl.d/           systemd/            system-release      system-release-cpe  
+[root@kernel-update vagrant]# ls -ls /etc/sysconfig/ht
+htcacheclean  httpd         
+[root@kernel-update vagrant]# ls -ls /etc/sysconfig/ht
+[root@kernel-update vagrant]# vi /etc/httpd/conf/second.conf 
+[root@kernel-update vagrant]# systemctl status httpd@first
+Unit httpd@first.service could not be found.
+[root@kernel-update vagrant]# systemctl start httpd@first
+Failed to start httpd@first.service: Unit not found.
+[root@kernel-update vagrant]# systemctl status httpd
+● httpd.service - The Apache HTTP Server
+   Loaded: loaded (/usr/lib/systemd/system/httpd.service; disabled; vendor preset: disabled)
+   Active: inactive (dead)
+     Docs: man:httpd(8)
+           man:apachectl(8)
+
+Mar 28 18:09:41 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:9] Failed to resolve specifiers, ignoring: /etc/sysconfig/httpd-%I
+[root@kernel-update vagrant]# vi /usr/lib/sys
+sysctl.d/ systemd/  
+[root@kernel-update vagrant]# vi /usr/lib/systemd/
+catalog/                   rhel-readonly              systemd-cgroups-agent      systemd-localed            systemd-remount-fs         systemd-timedated          system-sleep/
+import-pubring.gpg         scripts/                   systemd-coredump           systemd-logind             systemd-reply-password     systemd-udevd              user/
+ntp-units.d/               system/                    systemd-cryptsetup         systemd-machined           systemd-rfkill             systemd-update-done        user-generators/
+rhel-autorelabel           systemd                    systemd-fsck               systemd-machine-id-commit  systemd-shutdown           systemd-update-utmp        user-preset/
+rhel-configure             systemd-ac-power           systemd-hibernate-resume   systemd-modules-load       systemd-shutdownd          systemd-user-sessions      
+rhel-dmesg                 systemd-activate           systemd-hostnamed          systemd-pull               systemd-sleep              systemd-vconsole-setup     
+rhel-domainname            systemd-backlight          systemd-importd            systemd-quotacheck         systemd-socket-proxyd      system-generators/         
+rhel-import-state          systemd-binfmt             systemd-initctl            systemd-random-seed        systemd-sysctl             system-preset/             
+rhel-loadmodules           systemd-bootchart          systemd-journald           systemd-readahead          systemd-sysv-install       system-shutdown/           
+[root@kernel-update vagrant]# vi /usr/lib/systemd/system/httpd.service 
+[root@kernel-update vagrant]# vi /usr/lib/systemd/system/httpd.service 
+[root@kernel-update vagrant]# cp /usr/lib/systemd/system/httpd.service /root
+[root@kernel-update vagrant]# vi /usr/lib/systemd/system/httpd.service 
+[root@kernel-update vagrant]# systemctl start httpd@first
+Failed to start httpd@first.service: Unit not found.
+[root@kernel-update vagrant]# systemctl start httpd
+Failed to start httpd.service: Unit is not loaded properly: Bad message.
+See system logs and 'systemctl status httpd.service' for details.
+[root@kernel-update vagrant]# status start httpd
+bash: status: command not found
+[root@kernel-update vagrant]# systemctl status httpd
+● httpd.service - The Apache HTTP Server
+   Loaded: error (Reason: Bad message)
+   Active: inactive (dead)
+
+Mar 28 18:09:41 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:9] Failed to resolve specifiers, ignoring: /etc/sysconfig/httpd-%I
+Mar 28 18:13:31 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:5] Failed to add dependency on httpd-, ignoring: Invalid argument
+Mar 28 18:13:31 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:6] Missing '='.
+Mar 28 18:13:51 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:5] Failed to add dependency on httpd-, ignoring: Invalid argument
+Mar 28 18:13:51 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:6] Missing '='.
+[root@kernel-update vagrant]# mv /root/httpd.service /usr/lib/systemd/system/httpd.service 
+mv: overwrite '/usr/lib/systemd/system/httpd.service'? y
+[root@kernel-update vagrant]# systemctl status httpd
+● httpd.service - The Apache HTTP Server
+   Loaded: loaded (/usr/lib/systemd/system/httpd.service; disabled; vendor preset: disabled)
+   Active: inactive (dead)
+     Docs: man:httpd(8)
+           man:apachectl(8)
+
+Mar 28 18:09:41 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:9] Failed to resolve specifiers, ignoring: /etc/sysconfig/httpd-%I
+Mar 28 18:13:31 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:5] Failed to add dependency on httpd-, ignoring: Invalid argument
+Mar 28 18:13:31 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:6] Missing '='.
+Mar 28 18:13:51 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:5] Failed to add dependency on httpd-, ignoring: Invalid argument
+Mar 28 18:13:51 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:6] Missing '='.
+Mar 28 18:15:13 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:9] Failed to resolve specifiers, ignoring: /etc/sysconfig/httpd-%I
+[root@kernel-update vagrant]# systemctl status httpd
+● httpd.service - The Apache HTTP Server
+   Loaded: loaded (/usr/lib/systemd/system/httpd.service; disabled; vendor preset: disabled)
+   Active: inactive (dead)
+     Docs: man:httpd(8)
+           man:apachectl(8)
+
+Mar 28 18:09:41 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:9] Failed to resolve specifiers, ignoring: /etc/sysconfig/httpd-%I
+Mar 28 18:13:31 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:5] Failed to add dependency on httpd-, ignoring: Invalid argument
+Mar 28 18:13:31 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:6] Missing '='.
+Mar 28 18:13:51 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:5] Failed to add dependency on httpd-, ignoring: Invalid argument
+Mar 28 18:13:51 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:6] Missing '='.
+Mar 28 18:15:13 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:9] Failed to resolve specifiers, ignoring: /etc/sysconfig/httpd-%I
+Mar 28 18:15:15 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:9] Failed to resolve specifiers, ignoring: /etc/sysconfig/httpd-%I
+[root@kernel-update vagrant]# systemctl start httpd
+Job for httpd.service failed because a configured resource limit was exceeded. See "systemctl status httpd.service" and "journalctl -xe" for details.
+[root@kernel-update vagrant]# systemctl status httpd
+● httpd.service - The Apache HTTP Server
+   Loaded: loaded (/usr/lib/systemd/system/httpd.service; disabled; vendor preset: disabled)
+   Active: failed (Result: resources)
+     Docs: man:httpd(8)
+           man:apachectl(8)
+
+Mar 28 18:13:51 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:5] Failed to add dependency on httpd-, ignoring: Invalid argument
+Mar 28 18:13:51 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:6] Missing '='.
+Mar 28 18:15:13 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:9] Failed to resolve specifiers, ignoring: /etc/sysconfig/httpd-%I
+Mar 28 18:15:15 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:9] Failed to resolve specifiers, ignoring: /etc/sysconfig/httpd-%I
+Mar 28 18:15:19 kernel-update systemd[1]: [/usr/lib/systemd/system/httpd.service:9] Failed to resolve specifiers, ignoring: /etc/sysconfig/httpd-%I
+Mar 28 18:15:19 kernel-update systemd[1]: Failed to load environment files: No such file or directory
+Mar 28 18:15:19 kernel-update systemd[1]: httpd.service failed to run 'start' task: No such file or directory
+Mar 28 18:15:19 kernel-update systemd[1]: Failed to start The Apache HTTP Server.
+Mar 28 18:15:19 kernel-update systemd[1]: Unit httpd.service entered failed state.
+Mar 28 18:15:19 kernel-update systemd[1]: httpd.service failed.
+[root@kernel-update vagrant]# systemctl start httpd
+Job for httpd.service failed because a configured resource limit was exceeded. See "systemctl status httpd.service" and "journalctl -xe" for details.
+[root@kernel-update vagrant]# journalctl -xe
+Mar 28 18:15:54 kernel-update systemd[1]: Failed to load environment files: No such file or directory
+Mar 28 18:15:54 kernel-update systemd[1]: httpd.service failed to run 'start' task: No such file or directory
+Mar 28 18:15:54 kernel-update systemd[1]: Failed to start The Apache HTTP Server.
+-- Subject: Unit httpd.service has failed
+-- Defined-By: systemd
+-- Support: http://lists.freedesktop.org/mailman/listinfo/systemd-devel
+-- 
+-- Unit httpd.service has failed.
+-- 
+-- The result is failed.
+Mar 28 18:15:54 kernel-update systemd[1]: httpd.service failed.
+Mar 28 18:15:54 kernel-update systemd[1]: Started My watchlog service.
+-- Subject: Unit watchlog.service has finished start-up
+-- Defined-By: systemd
+-- Support: http://lists.freedesktop.org/mailman/listinfo/systemd-devel
+-- 
+-- Unit watchlog.service has finished starting up.
+-- 
+-- The start-up result is done.
+Mar 28 18:15:54 kernel-update polkitd[357]: Unregistered Authentication Agent for unix-process:22782:513035 (system bus name :1.54, object path /org/freedesktop/PolicyKit1/AuthenticationAgen
+[root@kernel-update vagrant]# ps aux | grep httpd
+root     22807  0.0  0.0  12500   688 pts/1    S+   18:16   0:00 grep --color=auto httpd
+[root@kernel-update vagrant]# exit
+[vagrant@kernel-update ~]$ exit
+
+Script done on Thu Mar 28 18:17:02 2024
+
