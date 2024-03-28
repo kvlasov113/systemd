@@ -23,8 +23,11 @@ chmod +x /opt/watchlog.sh
 ### Создадим юнит
 
 [root@kernel-update vagrant]# mkdir /etc/systemd/system/watchlog
+
 [root@kernel-update vagrant]# touch /etc/systemd/system/watchlog/watchlog.service
+
 [root@kernel-update vagrant]# chmod +x /etc/systemd/system/watchlog/watchlog.service
+
 
 
 
