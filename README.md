@@ -58,6 +58,7 @@ chmod +x /etc/systemd/system/watchlog/watchlog.timer
 
 ### Смотри историю шела в watchlog.log
 
+
 ## переписать init-скрипт
 
 Устанавливаем spawn-fcgi и необходимые для него пакеты:
@@ -77,6 +78,7 @@ yum install epel-release -y && yum install spawn-fcgi php php-cli mod_fcgid http
 ```
 
 ### Смотри историю шела в spawn-fcgi.log
+
 
 ## Дополнить юнит файл
 
