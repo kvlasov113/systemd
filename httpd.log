@@ -1,0 +1,246 @@
+[vagrant@kernel-update ~]$ sudo su 
+[root@kernel-update vagrant]# yum install epel-release -y && yum install httpd -y
+Failed to set locale, defaulting to C
+Loaded plugins: fastestmirror
+Determining fastest mirrors
+ * base: mirror.sale-dedic.com
+ * extras: mirrors.powernet.com.ru
+ * updates: mirror.sale-dedic.com
+base                                                                                                                         | 3.6 kB  00:00:00     
+extras                                                                                                                       | 2.9 kB  00:00:00     
+updates                                                                                                                      | 2.9 kB  00:00:00     
+(1/4): base/7/x86_64/group_gz                                                                                                | 153 kB  00:00:00     
+(2/4): extras/7/x86_64/primary_db                                                                                            | 254 kB  00:00:00     
+(3/4): base/7/x86_64/primary_db                                                                                              | 6.1 MB  00:00:04     
+(4/4): updates/7/x86_64/primary_db                                                                                           |  26 MB  00:00:07     
+Resolving Dependencies
+--> Running transaction check
+---> Package epel-release.noarch 0:7-11 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+====================================================================================================================================================
+ Package                                 Arch                              Version                          Repository                         Size
+====================================================================================================================================================
+Installing:
+ epel-release                            noarch                            7-11                             extras                             15 k
+
+Transaction Summary
+====================================================================================================================================================
+Install  1 Package
+
+Total download size: 15 k
+Installed size: 24 k
+Downloading packages:
+warning: /var/cache/yum/x86_64/7/extras/packages/epel-release-7-11.noarch.rpm: Header V3 RSA/SHA256 Signature, key ID f4a80eb5: NOKEY
+Public key for epel-release-7-11.noarch.rpm is not installed
+epel-release-7-11.noarch.rpm                                                                                                 |  15 kB  00:00:00     
+Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+Importing GPG key 0xF4A80EB5:
+ Userid     : "CentOS-7 Key (CentOS 7 Official Signing Key) <security@centos.org>"
+ Fingerprint: 6341 ab27 53d7 8a78 a7c2 7bb1 24c6 a8a7 f4a8 0eb5
+ Package    : centos-release-7-8.2003.0.el7.centos.x86_64 (@anaconda)
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : epel-release-7-11.noarch                                                                                                         1/1 
+  Verifying  : epel-release-7-11.noarch                                                                                                         1/1 
+
+Installed:
+  epel-release.noarch 0:7-11                                                                                                                        
+
+Complete!
+Failed to set locale, defaulting to C
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+epel/x86_64/metalink                                                                                                         |  25 kB  00:00:00     
+ * base: mirror.sale-dedic.com
+ * epel: ftp.nsc.ru
+ * extras: mirrors.powernet.com.ru
+ * updates: mirror.sale-dedic.com
+epel                                                                                                                         | 4.7 kB  00:00:00     
+(1/3): epel/x86_64/group_gz                                                                                                  | 100 kB  00:00:00     
+(2/3): epel/x86_64/updateinfo                                                                                                | 1.0 MB  00:00:00     
+(3/3): epel/x86_64/primary_db                                                                                                | 7.0 MB  00:00:01     
+Resolving Dependencies
+--> Running transaction check
+---> Package httpd.x86_64 0:2.4.6-99.el7.centos.1 will be installed
+--> Processing Dependency: httpd-tools = 2.4.6-99.el7.centos.1 for package: httpd-2.4.6-99.el7.centos.1.x86_64
+--> Processing Dependency: system-logos >= 7.92.1-1 for package: httpd-2.4.6-99.el7.centos.1.x86_64
+--> Processing Dependency: /etc/mime.types for package: httpd-2.4.6-99.el7.centos.1.x86_64
+--> Processing Dependency: libaprutil-1.so.0()(64bit) for package: httpd-2.4.6-99.el7.centos.1.x86_64
+--> Processing Dependency: libapr-1.so.0()(64bit) for package: httpd-2.4.6-99.el7.centos.1.x86_64
+--> Running transaction check
+---> Package apr.x86_64 0:1.4.8-7.el7 will be installed
+---> Package apr-util.x86_64 0:1.5.2-6.el7_9.1 will be installed
+---> Package centos-logos.noarch 0:70.0.6-3.el7.centos will be installed
+---> Package httpd-tools.x86_64 0:2.4.6-99.el7.centos.1 will be installed
+---> Package mailcap.noarch 0:2.1.41-2.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+====================================================================================================================================================
+ Package                            Arch                         Version                                        Repository                     Size
+====================================================================================================================================================
+Installing:
+ httpd                              x86_64                       2.4.6-99.el7.centos.1                          updates                       2.7 M
+Installing for dependencies:
+ apr                                x86_64                       1.4.8-7.el7                                    base                          104 k
+ apr-util                           x86_64                       1.5.2-6.el7_9.1                                updates                        92 k
+ centos-logos                       noarch                       70.0.6-3.el7.centos                            base                           21 M
+ httpd-tools                        x86_64                       2.4.6-99.el7.centos.1                          updates                        94 k
+ mailcap                            noarch                       2.1.41-2.el7                                   base                           31 k
+
+Transaction Summary
+====================================================================================================================================================
+Install  1 Package (+5 Dependent packages)
+
+Total download size: 24 M
+Installed size: 32 M
+Downloading packages:
+(1/6): apr-util-1.5.2-6.el7_9.1.x86_64.rpm                                                                                   |  92 kB  00:00:00     
+(2/6): apr-1.4.8-7.el7.x86_64.rpm                                                                                            | 104 kB  00:00:00     
+(3/6): mailcap-2.1.41-2.el7.noarch.rpm                                                                                       |  31 kB  00:00:00     
+(4/6): httpd-tools-2.4.6-99.el7.centos.1.x86_64.rpm                                                                          |  94 kB  00:00:00     
+(5/6): httpd-2.4.6-99.el7.centos.1.x86_64.rpm                                                                                | 2.7 MB  00:00:01     
+(6/6): centos-logos-70.0.6-3.el7.centos.noarch.rpm                                                                           |  21 MB  00:00:07     
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                                               3.3 MB/s |  24 MB  00:00:07     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : apr-1.4.8-7.el7.x86_64                                                                                                           1/6 
+  Installing : apr-util-1.5.2-6.el7_9.1.x86_64                                                                                                  2/6 
+  Installing : httpd-tools-2.4.6-99.el7.centos.1.x86_64                                                                                         3/6 
+  Installing : centos-logos-70.0.6-3.el7.centos.noarch                                                                                          4/6 
+  Installing : mailcap-2.1.41-2.el7.noarch                                                                                                      5/6 
+  Installing : httpd-2.4.6-99.el7.centos.1.x86_64                                                                                               6/6 
+  Verifying  : httpd-tools-2.4.6-99.el7.centos.1.x86_64                                                                                         1/6 
+  Verifying  : mailcap-2.1.41-2.el7.noarch                                                                                                      2/6 
+  Verifying  : apr-1.4.8-7.el7.x86_64                                                                                                           3/6 
+  Verifying  : httpd-2.4.6-99.el7.centos.1.x86_64                                                                                               4/6 
+  Verifying  : apr-util-1.5.2-6.el7_9.1.x86_64                                                                                                  5/6 
+  Verifying  : centos-logos-70.0.6-3.el7.centos.noarch                                                                                          6/6 
+
+Installed:
+  httpd.x86_64 0:2.4.6-99.el7.centos.1                                                                                                              
+
+Dependency Installed:
+  apr.x86_64 0:1.4.8-7.el7                            apr-util.x86_64 0:1.5.2-6.el7_9.1          centos-logos.noarch 0:70.0.6-3.el7.centos         
+  httpd-tools.x86_64 0:2.4.6-99.el7.centos.1          mailcap.noarch 0:2.1.41-2.el7             
+
+Complete!
+[root@kernel-update vagrant]# cp /usr/
+bin/     etc/     games/   include/ lib/     lib64/   libexec/ local/   sbin/    share/   src/     tmp/     
+[root@kernel-update vagrant]# cp /usr/lib/systemd/system/httpd.service /usr/lib/systemd/system/httpd@.service
+[root@kernel-update vagrant]# vi /usr/lib/systemd/system/httpd
+httpd.service   httpd@.service  
+[root@kernel-update vagrant]# vi /usr/lib/systemd/system/httpd@/.service
+[root@kernel-update vagrant]# vi /usr/lib/systemd/system/httpd
+httpd.service   httpd@.service  
+[root@kernel-update vagrant]# vi /usr/lib/systemd/system/httpd@.service 
+[root@kernel-update vagrant]# 
+[root@kernel-update vagrant]# touch /etc/sysconfig/httpd-first
+[root@kernel-update vagrant]# touch /etc/sysconfig/httpd-second
+[root@kernel-update vagrant]# vi /etc/sysconfig/httpd-first
+[root@kernel-update vagrant]# vi /etc/sysconfig/httpd-second 
+[root@kernel-update vagrant]# vi /etc/sysconfig/httpd-second 
+[root@kernel-update vagrant]# cat /etc/sysconfig/httpd-first
+OPTIONS=-f conf/first.conf
+[root@kernel-update vagrant]# vi /etc/httpd/conf
+conf/           conf.d/         conf.modules.d/ 
+[root@kernel-update vagrant]# vi /etc/httpd/conf/
+httpd.conf  magic       
+[root@kernel-update vagrant]# vi /etc/httpd/conf/httpd.conf 
+[root@kernel-update vagrant]# cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/first.conf 
+[root@kernel-update vagrant]# cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/second.conf
+[root@kernel-update vagrant]# vi /etc/httpd/conf/first.conf 
+[root@kernel-update vagrant]# grep "port" /etc/httpd/conf/first.conf 
+# ports, instead of the default. See also the <VirtualHost>
+# Dynamic Shared Object (DSO) Support
+# ServerName gives the name and port that the server uses to identify itself.
+    # The Options directive is both complicated and important.  Please see
+    # information on the fly. Note: Not all browsers support this.
+# EnableMMAP and EnableSendfile: On systems that support it, 
+# filesystems or if support for these functions is otherwise
+[root@kernel-update vagrant]# grep "8081" /etc/httpd/conf/first.conf 
+Listen 8081
+[root@kernel-update vagrant]# grep "pid" /etc/httpd/conf/first.conf 
+[root@kernel-update vagrant]# vi /etc/httpd/conf/first.conf 
+[root@kernel-update vagrant]# vi /etc/httpd/conf/first.conf 
+[root@kernel-update vagrant]# vi /etc/httpd/conf/second.conf 
+[root@kernel-update vagrant]# systemctl start httpd@first
+Job for httpd@first.service failed because the control process exited with error code. See "systemctl status httpd@first.service" and "journalctl -xe" for details.
+[root@kernel-update vagrant]# journalctl -xe
+Mar 29 12:11:20 kernel-update yum[2387]: Installed: epel-release-7-11.noarch
+Mar 29 12:11:43 kernel-update yum[2423]: Installed: apr-1.4.8-7.el7.x86_64
+Mar 29 12:11:43 kernel-update yum[2423]: Installed: apr-util-1.5.2-6.el7_9.1.x86_64
+Mar 29 12:11:43 kernel-update yum[2423]: Installed: httpd-tools-2.4.6-99.el7.centos.1.x86_64
+Mar 29 12:11:44 kernel-update yum[2423]: Installed: centos-logos-70.0.6-3.el7.centos.noarch
+Mar 29 12:11:44 kernel-update yum[2423]: Installed: mailcap-2.1.41-2.el7.noarch
+Mar 29 12:11:44 kernel-update groupadd[2513]: group added to /etc/group: name=apache, GID=48
+Mar 29 12:11:44 kernel-update groupadd[2513]: group added to /etc/gshadow: name=apache
+Mar 29 12:11:44 kernel-update groupadd[2513]: new group: name=apache, GID=48
+Mar 29 12:11:44 kernel-update useradd[2517]: new user: name=apache, UID=48, GID=48, home=/usr/share/httpd, shell=/sbin/nologin
+Mar 29 12:11:45 kernel-update systemd[1]: Reloading.
+Mar 29 12:11:45 kernel-update yum[2423]: Installed: httpd-2.4.6-99.el7.centos.1.x86_64
+Mar 29 12:23:38 kernel-update polkitd[345]: Registered Authentication Agent for unix-process:2867:87641 (system bus name :1.42 [/usr/bin/pkttyagent 
+Mar 29 12:23:38 kernel-update systemd[1]: Created slice system-httpd.slice.
+-- Subject: Unit system-httpd.slice has finished start-up
+-- Defined-By: systemd
+-- Support: http://lists.freedesktop.org/mailman/listinfo/systemd-devel
+-- 
+-- Unit system-httpd.slice has finished starting up.
+-- 
+-- The start-up result is done.
+Mar 29 12:23:38 kernel-update systemd[1]: Starting The Apache HTTP Server...
+-- Subject: Unit httpd@first.service has begun start-up
+-- Defined-By: systemd
+-- Support: http://lists.freedesktop.org/mailman/listinfo/systemd-devel
+-- 
+-- Unit httpd@first.service has begun starting up.
+Mar 29 12:23:38 kernel-update httpd[2873]: AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 127.0.1.1. S
+Mar 29 12:23:38 kernel-update httpd[2873]: (13)Permission denied: AH00072: make_sock: could not bind to address [::]:8081
+Mar 29 12:23:38 kernel-update httpd[2873]: (13)Permission denied: AH00072: make_sock: could not bind to address 0.0.0.0:8081
+Mar 29 12:23:38 kernel-update httpd[2873]: no listening sockets available, shutting down
+Mar 29 12:23:38 kernel-update httpd[2873]: AH00015: Unable to open logs
+Mar 29 12:23:38 kernel-update systemd[1]: httpd@first.service: main process exited, code=exited, status=1/FAILURE
+Mar 29 12:23:38 kernel-update systemd[1]: Failed to start The Apache HTTP Server.
+-- Subject: Unit httpd@first.service has failed
+-- Defined-By: systemd
+-- Support: http://lists.freedesktop.org/mailman/listinfo/systemd-devel
+-- 
+-- Unit httpd@first.service has failed.
+-- 
+-- The result is failed.
+Mar 29 12:23:38 kernel-update systemd[1]: Unit httpd@first.service entered failed state.
+Mar 29 12:23:38 kernel-update systemd[1]: httpd@first.service failed.
+Mar 29 12:23:38 kernel-update polkitd[345]: Unregistered Authentication Agent for unix-process:2867:87641 (system bus name :1.42, object path /org/f
+[root@kernel-update vagrant]# setenforce 0
+[root@kernel-update vagrant]# sestatus 
+SELinux status:                 enabled
+SELinuxfs mount:                /sys/fs/selinux
+SELinux root directory:         /etc/selinux
+Loaded policy name:             targeted
+Current mode:                   permissive
+Mode from config file:          enforcing
+Policy MLS status:              enabled
+Policy deny_unknown status:     allowed
+Max kernel policy version:      31
+[root@kernel-update vagrant]# systemctl start httpd@first
+[root@kernel-update vagrant]# systemctl start httpd@second
+[root@kernel-update vagrant]# 
+[root@kernel-update vagrant]# 
+[root@kernel-update vagrant]# 
+[root@kernel-update vagrant]# 
+[root@kernel-update vagrant]# ss -lntup | grep 80
+tcp    LISTEN     0      128    [::]:8081               [::]:*                   users:(("httpd",pid=2896,fd=4),("httpd",pid=2895,fd=4),("httpd",pid=2894,fd=4),("httpd",pid=2893,fd=4),("httpd",pid=2892,fd=4),("httpd",pid=2891,fd=4))
+tcp    LISTEN     0      128    [::]:8082               [::]:*                   users:(("httpd",pid=2908,fd=4),("httpd",pid=2907,fd=4),("httpd",pid=2906,fd=4),("httpd",pid=2905,fd=4),("httpd",pid=2904,fd=4),("httpd",pid=2903,fd=4))
+[root@kernel-update vagrant]# exit
+[vagrant@kernel-update ~]$ exit
+
